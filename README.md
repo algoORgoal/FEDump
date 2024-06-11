@@ -1,44 +1,31 @@
-# KUIT 3기 Web 9주차 미션
-- axios + react-query를 활용하여 CRUD 구현하기
+## Welcome🖐️
 
-<br><br><br><br>
+- This is a personal blog repository for my own use. I created this repo since I wasn't satisfied with the blog platform dev.to for the following reasons:
 
-# 🖱️ 개발 환경
-- **IDE : visual studio code**
-- **JavaScript**
-- **TypeScript**
-- **React**
-- **Tailwind CSS**
+  1. You can't upload webp or gif to demonstrate how-to manuals.
+  2. Viewers must sign up to dev.to to like or leave a comment. Github sign-in would have been better.
+  3. The font looks ugly, especially the Korean one.
 
-<br><br><br><br>
+- Currently, I'm building a markdown editor so that I can really move my posts here.
 
-# React + TypeScript + Vite
+## Tech stacks📚
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Next.js(Current I'm migrating off from Vite for better SEO)
+- Typescript
+- axios
+- React-query
+- TailwindCSS
+- ESLint
+- Prettier
 
-Currently, two official plugins are available:
+## How to run🖥️
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- To run it on your machine, type this command.
 
-## Expanding the ESLint configuration
+  ```
+  yarn dev
+  ```
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Collaborate🤝
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- If you would like to use my repo as a template, please let me know! I'm happy to work on it.☺️
