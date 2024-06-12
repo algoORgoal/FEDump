@@ -74,8 +74,7 @@ const Content: React.FC = () => {
   }
 
   return (
-    <div className="font-pretendard min-h-screen w-screen bg-white dark:bg-zinc-700 text-black dark:text-white flex flex-col">
-      <SearchHeader />
+    <div className="min-h-screen w-screen bg-white dark:bg-zinc-700 text-black dark:text-white flex flex-col">
       <div className=" text-black sm:mx-32 pb-72">
         {isEditing ? (
           // 수정 중일 때

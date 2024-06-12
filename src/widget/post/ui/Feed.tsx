@@ -108,7 +108,7 @@ const Feed: React.FC = () => {
   // if (matchingPostList.length === 0) {
   //   return (
   //     <div
-  //       className="font-pretendard flex h-full text-zinc-700 dark:text-white flex-grow"
+  //       className="flex h-full text-zinc-700 dark:text-white flex-grow"
   //       style={{ height: "500px" }}
   //     >
   //       <div className="flex justify-center items-center">
