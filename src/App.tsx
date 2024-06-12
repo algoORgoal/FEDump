@@ -12,7 +12,6 @@ function App() {
     },
   });
 
-  // useQuery를 사용하려면 QueryClientProvider로 감싸줘야함
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>

@@ -20,8 +20,6 @@ import { SearchBar } from "../../features/search/ui/SearchBar";
 import { useState } from "react";
 
 export default function SearchHeader() {
-  // const { isLoggedIn } = useStore();
-
   const { query, updateQuery } = useSearchStore((state) => ({
     query: state.query,
     updateQuery: state.updateQuery,
