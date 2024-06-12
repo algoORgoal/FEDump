@@ -20,11 +20,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <head></head>
       <body className={`${pretendard.className}`}>
-        <div id="root">
-          {/* <div className="min-h-screen w-screen bg-white dark:bg-zinc-700 flex flex-col"></div>
-          <div className="min-h-screen w-screen bg-white dark:bg-zinc-700 text-black dark:text-white flex flex-col"></div>
-          <div className="min-h-screen w-screen bg-white flex flex-col px-8"></div> */}
-          {/* <SearchHeader /> */}
+        <div className="min-h-screen w-screen bg-white dark:bg-zinc-700 flex flex-col">
+          <SearchHeader />
           {children}
         </div>
       </body>

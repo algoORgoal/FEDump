@@ -6,7 +6,7 @@ import ScrollToTop from "./../components/atoms/ScrollToTop";
 
 const Board = () => {
   return (
-    <div className="min-h-screen w-screen bg-white dark:bg-zinc-700 flex flex-col">
+    <div>
       <div className="h-64  flex-shrink-0">
         <BoardIntroduce />
       </div>
