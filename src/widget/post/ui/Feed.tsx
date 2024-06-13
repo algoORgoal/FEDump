@@ -94,7 +94,7 @@ const Feed: React.FC = () => {
           ))
         )}
       </div>
-      <div ref={intersectionRef}>로딩중...sdfsdasaddsfasdfadsf</div>
+      <div ref={intersectionRef} />
     </>
   );
 
