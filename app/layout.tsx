@@ -1,7 +1,9 @@
 import SearchHeader from "@/src/widget/post/Appbar";
 import { Metadata } from "next";
-import React, { ReactNode } from "react";
 import localFont from "next/font/local";
+import React, { ReactNode } from "react";
+import "./global.css";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "FE Dump - A blog by byeol_chance",
@@ -20,8 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <head></head>
       <body className={`${pretendard.className}`}>
-        <div className="min-h-screen w-screen bg-white dark:bg-zinc-700 flex flex-col">
-          <SearchHeader />
+        <div className="min-h-screen w-full bg-white dark:bg-zinc-700 flex flex-col">
           {children}
         </div>
       </body>
