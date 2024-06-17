@@ -1,0 +1,88 @@
+
+Vercel doesn't support deploying an organization repository for free, you will need some workaround if you want to stay on the hobby plan. In this post, I'll talk how you can do it with github actions. I hope the pricing boundary doesn't stop student developers from building and shipping new ideas.
+
+This post is entirely inspired by [A github gist tutorial](https://gist.github.com/ky28059/1c9af929a9030105da8cf00006b50484).
+
+## Requirements
+
+- This guideline assumes that you're working on a Next.js project.
+- Be careful not to leak vercel keys and tokens.
+
+## How to 
+
+- Install vercel cli by running the following command:
+
+```
+yarn global add vercel
+```
+
+- Check if vercel cil has been successfully installed.
+
+```
+vercel --version
+```
+
+- Run vercel cli. You'll get some inquiries on how to set up your deployment. **Make sure to deploy to your [username].**
+
+```
+vercel
+```
+
+- Visit https://vercel.com/account/tokens and generate a token. **Don't leak the generated token anywhere else.**.
+
+![Vercel website - create tokens](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jdy9xepmgqxmlzv6d645.png)
+
+- Write github workflow to run github actions. vercel-action[https://github.com/amondnet/vercel-action] will help you deploy to your hobby plan project.
+
+.github/workflows/vercel-merge.yml
+```yml
+# vercel-merge.yml
+name: Deploy to vercel on merge
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-args: "--prod"
+          vercel-org-id: ${{ secrets.ORG_ID}}
+          vercel-project-id: ${{ secrets.PROJECT_ID}}
+```
+This workflow deploys to vercel on merging to main.
+
+- .github/workflows/vercel-pull-request.yml
+
+```yml
+name: Create vercel preview URL on pull request
+on:
+  pull_request:
+    branches: [main, master]
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: amondnet/vercel-action@v25
+        id: vercel-deploy
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID}}
+          vercel-project-id: ${{ secrets.PROJECT_ID}}
+      - name: preview-url
+        run: |
+          echo ${{ steps.vercel-deploy.outputs.preview-url }}
+```
+This workflow creates a preview on pull request.
+
+- VERCEL_TOKEN is the token you created on the vercel website.
+- You can find ORG_ID, PROJECT_ID in `package.json`. They should be created when you run `vercel` command.
+
+Happy Coding!

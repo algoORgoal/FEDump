@@ -1,0 +1,30 @@
+
+## Introduction
+
+### What is typescript?
+
+A programming language with type systems on top of javascript
+
+### Why do you need typescript?
+
+- **Easy to catch mistakes by specifying types**
+- Appropriate for enterprise applications
+- **Applying OOP(Object-Oriented Programming) concepts such as interfaces and classes in your codebase**
+- Makes it easier to understand your codebase
+- Awesome tooling System
+
+### Why don’t you need javascript?
+
+- Learning overhead
+- Compile to execute javascript code-it adds another step in the development process
+
+## Best practices
+
+### Use `unknown` type if you need `any`
+
+- `unknown` forces you to narrow down types, so you can deal with the variable case by case, while `any` doesn’t give you any information about its type.
+
+### Don’t use optional parameters in callbacks
+
+- You can pass in functions with fewer arguments even if you don’t use optional parameters in callbacks
+- Use it when you mean to explicitly write parameters.

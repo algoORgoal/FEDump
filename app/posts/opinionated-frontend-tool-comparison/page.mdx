@@ -1,0 +1,65 @@
+
+## Javascript vs. Typescript
+
+### Comparison Table
+
+|  | Javascript | Typescript |
+|---|---|---|
+| **Velocity** | You can write code faster. | Writing typescript code might be slower than javascript. |
+| **Code Quality** | It's tricky to track down `TypeError`s. Your code always has a risk of errors | You can track down `TypeError`s before your application is shipped to production. |
+
+#### Notes
+- Inferring data types gives you more hints about how your code works. It can boost productivity especially when you're collaborating with other devs.
+- `TypeError` is one of the most common javascript errors. The top 8 javascript errors out of 10 are TypeErrors. [Check this website.](https://rollbar.com/blog/top-10-javascript-errors-from-1000-projects-and-how-to-avoid-them/)
+- Typescript has the largest community among javascript typing tools. That's why this tool is chosen for comparison.  
+## Next.js vs. React
+
+## React vs. Next.js
+
+### Comparison Table
+
+|  | React | Next.js |
+|---|---|---|
+| **Subsequent routing and navigating** | React app always guarantees fast subsequent navigating and routing. | Subsequent navigating and routing in Next.js app is likely to be slower and less smooth. |
+| **Initial Page Load** | React app needs to download and parse the entire bundle without code splitting, so initial page loads slowly. | Next.js server creates HTML immediately and sends it to the client, so initial page loads shortly. |
+| **SEO(Search Engine Optimization)** | Not all search engine bots can run javascript, so some of them cannot index(visit and read) react app. It is not SEO-friendly. | Next.js app has better SEO becauase bots don't need to run javascript to see the content and initial page loads shortly. Also, Dynamic meta tags and open-graph tags let users preview the content on social media and search engines. |
+| **Code Splitting** | You need to split code manually. | Next.js provides route-based code splitting by default. |
+| **Font Optimization** | Not supported by default | `next/@font` prevents CLS(Cumulative Layout Shift). |
+| **Image Optimization** | Not supported by default | Size optimization provides a minimal-sized and quality-assured copy of image for each device Images are lazy-loaded for faster page loading. Placeholders prevent CLS while page loading as well. |
+| **Cost** | Rendering HTML doesn't take any money. | Redering HTML on the server side takes money. |
+
+### Notes
+- Next.js app might be slower on subsequent navigation. However, it can mitigate the problem by caching and prefetching routes.
+
+### Performance: CSR problems vs. SSR solutions
+
+|  | Client Side Rendering | Server Side Rendering |
+|---|---|---|
+| **Downloading javascript** | It takes much time to download a javascript bundle, preventing the initial page from rendering. | Next.js server creates HTML on the server side and sends it to the client immediately, so the initial page loads faster. Route-based code splitting is set by default, so each route downloads minimal javascript required to load itself. |
+| **Running javascript** | It takes much time to run a javascript bundle, preventing the initial page from rendering. | Full Route cache caches each route. Caching routes on the server side would be faster than parsing and running a javascript bundle for rendering HTML. Also, partial prerendering caches static parts of each route and only fills the dynamic parts, rendering HTML on the server side even faster. This feature is still experimental, but hopefully, it's stable soon!  |
+| **Data-fetching** | It takes a lot of time to fetch the API server. | Data cache caches API response for each request. Caching response data on the server side would be faster than fetching the API server on the client side every single time. |
+
+## CSS-in-JS vs. TailwindCSS
+
+### CSS-in-JS
+
+#### Benefits
+- You can write JavaScript expressions for styling.
+- It has a large community support for react-native.
+
+#### Drawbacks
+- Currently, Runtime CSS-in-JS libraries, such as styled-components and emotions, are not supported by Server Components. Only build-time CSS-in-JS libraries are supported.
+- Even if you can write CSS in a javascript file components and styling are separated.
+
+### TailwindCSS
+
+#### Benefits
+- You can write CSS faster.
+- CSS and HTML are tied completely together.
+- Most CSS properties depend on parents or children, so it's easier to read CSS once you get used to it.
+
+#### Drawbacks
+- It's hard to get used to it
+- When you use JavaScript expressions, you need to do repetitive work. 
+
+https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics

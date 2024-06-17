@@ -1,0 +1,142 @@
+
+이번 글에서는 Next.js 14 버전에서 Pretendard 폰트를 적용하는 법과, 기존에 cdn에서 폰트를 적용하는 것에 비해서 어떤 최적화가 이루어지는지 다루겠습니다. 현재 Next.js 14에 대한 자료는 한글화된 문서가 많지 않아서 도움을 받으실 분들이 많으셨으면 좋겠습니다.
+
+## Pretenard
+- 사실상 현업 표준으로 자리잡은 한글 폰트입니다. 여러 회사들이 프로젝트에 적용하고 있습니다. 
+- 아이콘, 숫자와의 배치가 자연스러운 것이 장점입니다.
+- 폰트 굵기가 다양하여 섬세한 폰트 스타일링이 가능합니다.
+- 무료 상업용 폰트로 누구나 가져다 쓸 수 있습니다.
+
+## 설치
+1. [Prendtendard releast note](https://github.com/orioncactus/pretendard/releases/latest)로 들어가서 파일을 다운로드 받아주세요.
+
+    ![Release note assets](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vd6afqtbbjnuodpl3jn2.png)
+
+
+2. 압축을 풀고 `.../Pretendard-1.3.9/web/variable/woff2/PretendardVariable.woff2` 파일을 프로젝트 디렉토리에 넣어주세요. 제 프로젝트에는 /static/fonts 디렉토리에 넣었습니다.
+
+    ![Project directory](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/u9g8i4gg6lznefx2ryz9.png)
+
+3. global font로 적용시키기 위해서 `app/layout.tsx`에 className을 전달합니다.
+
+    ```ts
+    import localFont from "next/font/local";
+
+    const pretendard = localFont({
+      src: "../static/fonts/PretendardVariable.woff2",
+      display: "swap",
+      weight: "45 920",
+      variable: "--font-pretendard",
+    });
+
+    export default function RootLayout({
+      children,
+    }: Readonly<{
+      children: React.ReactNode;
+    }>) {
+      return (
+        <html lang="kr" className={`${pretendard.variable}`}>
+          <body className={pretendard.className}>
+            <Header/>
+            {children}
+          </body>
+        </html>
+      );
+    }
+    ```
+
+## tailwindcss에 css varaible로 등록하고 사용하기
+전역적으로 폰트를 적용시키는 대신에 부분적으로 폰트를 적용하고 싶을 때는 tailwind의 css variable으로 등록할 수 있습니다.
+
+1. `app/layout.tsx`에서 폰트의 css variable을 document에 넣어줍니다.
+
+    ```ts
+    import localFont from "next/font/local";
+
+    const pretendard = localFont({
+      src: "../static/fonts/PretendardVariable.woff2",
+      display: "swap",
+      weight: "45 920",
+      variable: "--font-pretendard",
+    });
+
+    export default function RootLayout({
+      children,
+    }: Readonly<{
+      children: React.ReactNode;
+    }>) {
+      return (
+        <html lang="kr" className={`${pretendard.variable}`}>
+          <body className={pretendard.className}>
+            <Header/>
+            {children}
+          </body>
+        </html>
+      );
+    }
+    ```
+
+2. `tailwind.cssconfig.js`에서 css variable을 추가합니다.
+
+    ```ts
+    import type { Config } from "tailwindcss";
+
+    const config: Config = {
+      content: [
+        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+        "./components/**/*.{js,ts,jsx,tsx,mdx}",
+        "./app/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/**/*.{js,ts,jsx,tsx,mdx}",
+        "./stories/**/*.{js,ts,jsx,tsx,mdx}",
+      ],
+      theme: {
+        extend: {
+          fontFamily: {
+            pretendard: ["var(--font-pretendard)"],
+          },
+        },
+      },
+      plugins: [],
+    };
+    export default config;
+    ```
+
+### 사용
+`className`에 `font-pretendard`를 추가하여 폰트를 적용시킬 수 있습니다.
+
+```ts
+<div className="font-pretendard shrink-0 font-black">프리텐다드</div>
+```
+
+## Font Optimization
+이 쯤에서 의문이 들었습니다.
+
+> .css file에서 `font-face` attribute로 cdn 통해 폰트를 다운로드 받지 않고 굳이 이렇게 구현해야 하는 이유가 무엇일까?
+
+Next.js 튜토리얼 비디오에 따르면 이에 대해 다음과 같이 답변해줍니다.
+
+- cdn으로부터 다운로드 받게 되는 경우에는 클라이언트에서 custom 폰트를 다운로드 받기 전까지는 운영체제에서 사용 가능한 fallback font(Arial 등)를 사용하게 게 됩니다. custom 폰트 로드 전/로드 후에 폰트 사이즈 크기 차이로 인해 cumulative layout shift가 발생하여 사용자 경험을 크게 떨어뜨리게 됩니다.
+
+- `Next.js`의 `next/font`를 사용하는 경우에는 font를 빌드 타임 때 한번만 다운로드 받고, fallback font가 사용되는 동안 css `size-adjust` 프로퍼티를 적용시켜서 글자 크기를 동일하게하여 layout shift가 발생하는 것을 막아줍니다.
+
+직접 개발자 도구를 켜고 확인해봤습니다.
+네트워크에 throttling을 걸어서 일단 custom font가 로드되기 전의 UI와 로드된 후의 UI를 확인했습니다.
+
+- 로드 전: 시스템 폰트가 적용되었습니다.
+![Text with fallback font](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/mvd49dl98j1xg1sgfcou.png)
+
+- 로드 후: Pretendard 폰트가 적용되었습니다.
+![Text with Loaded font](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/476h8hte4ta4p93fozr1.png)
+
+- 페이지에 접속했을 때 처음 받아오는 global css file을 확인해보니, 커스텀 폰트가 로드되는 동안 fallback font에 `size-adjust`를 설정하여 layout shift를 막고 있었습니다.
+
+![font in devtools](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yfwgtaj4fvqblzsrk8hg.png)
+
+![font in devtools2](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/u1ltxi1c0tasc3w8d3xf.png)
+
+## References
+- [Next.js Official Docs - optimizing fonts](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts)
+- [Next.js에서 localFont 적용하기 by 나주엽님](https://velog.io/@pmthk__/Next.js-LocalFont-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0-feat.-Pretendard)
+- [Chrome for developers - Improved font fallbacks](https://developer.chrome.com/blog/font-fallbacks)
+- [Using Fonts in Next.js (Google Fonts, Local Fonts, Tailwind CSS)
+](https://www.youtube.com/watch?v=L8_98i_bMMA&ab_channel=LeeRobinson)
