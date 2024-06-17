@@ -2,7 +2,7 @@ export type Post = {
   id: string;
   title: string;
   body: string;
-  time: string;
+  publishedAt: string;
   comments: {
     writer: string;
     content: string;
