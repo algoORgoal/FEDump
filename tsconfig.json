@@ -16,6 +16,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
     },
@@ -25,12 +26,15 @@
     "incremental": true
   },
   "include": [
-    "./src",
-    "custom.d.ts",
-    "src/features/post/ui/.tsx",
-    "./dist/types/**/*.ts",
+    "mdx-components.tsx",
     "./next-env.d.ts",
-    "app"
+    "tailwind.config.ts",
+    "./dist/types/**/*.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "app/**/*.mdx"
   ],
   "exclude": ["./node_modules"]
 }
