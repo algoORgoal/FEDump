@@ -53,7 +53,7 @@ At first, I tried it like this.
 
 - Note that `onValueChange()` is the event handler prop for `<RadioGroup/>` Component.
 - Note that `checked` prop is used in `<RadioGroupItem/>` Component.
-- The dynamic style `border-pink even:text-pink` of <Label/> specifies the text color of its second child element.
+- The dynamic style `border-pink even:text-pink` of `<Label/>` specifies the text color of its second child element.
 
 However, this element had a limitation. Since the direct declaration(`className='text-black'`) is applied by `@utilities` and the pseudoclass(`even:text-pink`) is applied by `@base` in the `global.css` file, `className='text-black` takes precedence over the pseudoclass and the text color of the second child doesn't change even if the radio button is set to `checked`. You can check the results below provided by Chrome Devtools.
 
@@ -150,6 +150,7 @@ border-width: 0;
 ```
 
 It hides the element from the screen completely. Plus it's still accessible.
+
 ![UI when sr-only is used](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dgf0uktqi15urvsgfpbd.png)
 
 ![Accessibility Tree on Chrome Devtools when sr-only is used](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/s2um4izc11abe2oekpxr.png)
