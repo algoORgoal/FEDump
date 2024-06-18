@@ -4,29 +4,34 @@
 
   1. You can't upload webp or gif to demonstrate how-to manuals.
   2. Viewers must sign up to dev.to to like or leave a comment. Github sign-in would have been better.
-  3. The font looks ugly, especially the Korean one.
-
-- Currently, I'm building a markdown editor so that I can really move my posts here.
+  3. The font looks ugly, especially the Korean one. It's hard to read for me.
+  4. Ordered List Syntax breaks in dev.to. I always need to indent them.
+  5. You cannot split a post into multiple sections with url fragments.
 
 ## Tech stacks📚
 
-- Next.js(Current I'm migrating off from Vite for better SEO)
-- Typescript
-- axios
-- React-query
-- TailwindCSS
-- ESLint
-- Prettier
-- @next/mdx: rehype, remark, highlight.js
+- [Next.js](https://nextjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [TailwindCSS](https://tailwindcss.com)
+- [shadcn/ui](https://ui.shadcn.com)
+- [ESLint](https://eslint.org)
+- [Prettier](https://prettier.io)
+- [@next/mdx](https://nextjs.org/docs/app/building-your-application/configuring/mdx): [rehype](https://github.com/rehypejs/rehype), [remark](https://github.com/remarkjs/remark), [highlight.js](https://highlightjs.org)
 
 ## How to run🖥️
 
-- To run it on your machine, type this command.
+1. Install dependencies.
 
-  ```
-  yarn dev
-  ```
+```
+yarn
+```
+
+2. Run the app locally.
+
+```
+yarn dev
+```
 
 ## Collaborate🤝
 
-- If you would like to use my repo as a template, please let me know! I'm happy to work on it.☺️
+- If you would like to use my repo as a template, please let me know! I'd be happy happy to work on it.
