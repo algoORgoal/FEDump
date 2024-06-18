@@ -22,7 +22,7 @@ export const PostCard = ({
   return (
     <li
       className="w-full h-auto bg-white dark:bg-zinc-700 text-zinc-700 dark:text-white border-b-2
-    overflow-hidden p-4 flex flex-col justify-between transform transition-all duration-300 ease-in-out hover:scale-105 relative"
+    overflow-hidden p-4 flex flex-col justify-between transform transition-all duration-300 ease-in-out hover:scale-105 relative hover:z-10"
     >
       <div>
         <div className="font-bold text-lg">{trimmedTitle}</div>

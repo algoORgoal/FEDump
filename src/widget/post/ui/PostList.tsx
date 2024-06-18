@@ -1,5 +1,6 @@
+import { PostCard } from "@/src/entities/post";
 import { getPosts } from "@/src/entities/post/api/post-list.query";
-import { PostCard } from "@/src/entities/post/ui/PostCard";
+
 import React from "react";
 
 export default async function PostList() {

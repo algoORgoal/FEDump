@@ -1,4 +1,4 @@
-export { PostCard } from "./ui/Card";
+export { PostCard } from "./ui/PostCard";
 
 // export { LikeStat as LikeStat } from "./ui/LikeStat";
 
