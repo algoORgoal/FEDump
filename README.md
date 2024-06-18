@@ -17,6 +17,7 @@
 - TailwindCSS
 - ESLint
 - Prettier
+- @next/mdx: rehype, remark, highlight.js
 
 ## How to run🖥️
 
