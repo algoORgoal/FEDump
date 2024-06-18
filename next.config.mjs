@@ -1,6 +1,12 @@
+import createMDX from "@next/mdx";
+import remarkGfm from "remark-gfm";
+import remarkUnwrapImages from "remark-unwrap-images";
+import rehypeHighlight from "rehype-highlight";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export", // Outputs a Single-Page Application (SPA).
+  // Configure `pageExtensions` to include MDX files
+  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   distDir: "./dist", // Changes the build output directory to `./dist/`.
   webpack(config) {
     // Grab the existing rule that handles SVG imports
@@ -29,6 +35,23 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "dev-to-uploads.s3.amazonaws.com",
+        port: "",
+        pathname: "**",
+      },
+    ],
+  },
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [remarkGfm, remarkUnwrapImages],
+    rehypePlugins: [rehypeHighlight],
+  },
+});
+
+export default withMDX(nextConfig);

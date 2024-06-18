@@ -1,14 +1,12 @@
 import BoardIntroduce from "../widget/post/ui/BoardIntroduce";
 import BoardFilterLine from "../widget/post/ui/BoardFilterLine";
 import DarkModeToggle from "../components/atoms/DarkModeToggle";
-import SearchHeader from "../widget/post/Appbar";
 import Feed from "../widget/post/ui/Feed";
 import ScrollToTop from "./../components/atoms/ScrollToTop";
 
 const Board = () => {
   return (
-    <div className="font-pretendard min-h-screen w-screen bg-white dark:bg-zinc-700 flex flex-col">
-      <SearchHeader />
+    <div>
       <div className="h-64  flex-shrink-0">
         <BoardIntroduce />
       </div>

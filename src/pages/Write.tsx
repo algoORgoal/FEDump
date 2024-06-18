@@ -59,9 +59,8 @@ const Write = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-white flex flex-col px-8">
-      <SearchHeader />
-      <div className="font-pretendard text-black sm:mx-32 mt-10">
+    <div>
+      <div className="text-black sm:mx-32 mt-10">
         <form className="mt-4">
           <div className="text-xl font-semibold dark:text-white">제목</div>
           <input

@@ -1,5 +1,5 @@
+import { readdir } from "fs/promises";
 import instance from "../../../shared/api/instance";
-import { Post } from "../../../shared/types/post";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 export const getList = async (
@@ -58,3 +58,63 @@ export const useGetPage = () =>
 //     getNextPageParam: (lastPage, allPages) => lastPage.length ? allPages.length + 1: undefined;
 //   })
 // };
+
+interface Post {
+  slug: string;
+  title: string;
+  publishedAt: string;
+}
+
+const PostPages = {
+  All: "all",
+  Create: "create",
+  Edit: "edit",
+  Delete: "delete",
+};
+
+export const getPosts = async (): Promise<Post[]> => {
+  const dirents = await readdir("./app/posts", { withFileTypes: true });
+  const slugs = await dirents
+    .filter((dirent) => dirent.isDirectory())
+    .filter(
+      (directoryDirent) =>
+        !Object.values(PostPages).some(
+          (PostPage) => PostPage === directoryDirent.name
+        )
+    );
+
+  const posts = await Promise.all(
+    slugs.map(async ({ name }): Promise<Post> => {
+      const { metadata } = (await import(`/app/posts/${name}/layout.tsx`)) as {
+        metadata: { title: string; publishedAt: string };
+      };
+      return { slug: name, ...metadata };
+    })
+  );
+
+  posts.sort((a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt));
+  return posts;
+};
+
+// export const getFilePosts = async ({pageParam} : {pageParam : number}): Promise<Post[] | null> => {
+//  const PER_PAGE = 2;
+//  const allPosts = await getPosts();
+
+//   // Get a subset of posts pased on page and limit
+//   const paginatedPosts = allPosts.slice((pageParam - 1) * PER_PAGE, pageParam * PER_PAGE - 1);
+
+//   return {
+//     prev: pageParam - 1,
+//     page: ,
+//     next: pageParam + 1,
+//     data: paginatedPosts,
+//   }
+// };
+
+// export const useGetFilePage = () =>
+//   useInfiniteQuery({
+//     queryKey: [...POST_LIST_QUERY_KEY],
+//     queryFn: getFilePosts,
+//     initialPageParam: 1,
+//     getNextPageParam: (lastPage) => lastPage.next,
+//   });

@@ -1,0 +1,11 @@
+I tried to manage state using state management libraries. However, if you look closer, the state can be divided into two categories.'
+
+## Server State
+- The client doesn't know the state's most recent and accurate data.
+- The client only knows the snapshot of the state at the time it's fetched.
+
+## Client State
+- The client knows the state's most recent and accurate data since the client created it.
+
+If you need to copy the server state from the client state, setting the data of the server state as the default value is the most common approach, especially if you're building a form.
+

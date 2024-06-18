@@ -19,9 +19,7 @@ export const CreateNewButton = () => {
         width={16}
         stroke={darkMode ? "white" : "black"}
       />
-      <div className="font-pretendard text-bold text-black dark:text-white ">
-        글쓰기
-      </div>
+      <div className="text-bold text-black dark:text-white ">글쓰기</div>
     </button>
   );
 };

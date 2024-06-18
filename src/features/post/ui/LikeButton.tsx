@@ -18,7 +18,7 @@ export const LikeButton: FC<LikeButtonProps> = ({
   };
 
   return (
-    <div className="font-pretendard items-center flex gap-x-2">
+    <div className="items-center flex gap-x-2">
       <button type="button" onClick={handleClick} className="z-10">
         <FavoriteBorder />
       </button>

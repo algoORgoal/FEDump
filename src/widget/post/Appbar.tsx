@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router";
+"use client";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import Drawer from "@mui/material/Drawer";
@@ -18,17 +18,15 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useSearchStore } from "../../features/search";
 import { SearchBar } from "../../features/search/ui/SearchBar";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function SearchHeader() {
-  // const { isLoggedIn } = useStore();
-
   const { query, updateQuery } = useSearchStore((state) => ({
     query: state.query,
     updateQuery: state.updateQuery,
   }));
 
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -106,19 +104,12 @@ export default function SearchHeader() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", sm: "block" },
-              cursor: "pointer",
-            }}
-            onClick={() => navigate("/")}
+          <Link
+            href="/"
+            className="grow invisible sm:visible overflow-ellipsis"
           >
             byeol_chance
-          </Typography>
+          </Link>
           <SearchBar query={query} onSearch={updateQuery} />
         </Toolbar>
       </AppBar>
