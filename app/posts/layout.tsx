@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="w-full md:w-[768px] mx-auto">
       <Header />
-      {children}
+      <article>{children}</article>
     </div>
   );
 }
