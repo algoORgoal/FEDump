@@ -7,12 +7,12 @@ export default async function PostList() {
   const posts = await getPosts();
 
   return (
-    <>
+    <ol>
       {posts.map((post) => (
-        <span key={post.slug}>
+        <li key={post.slug}>
           <PostCard post={post} />
-        </span>
+        </li>
       ))}
-    </>
+    </ol>
   );
 }
