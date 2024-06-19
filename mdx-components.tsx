@@ -23,6 +23,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         <Image
           fill
           {...(props as ImageProps)}
+          alt={props.alt || ""}
           sizes="100vw"
           style={{ objectFit: "contain" }}
         />
