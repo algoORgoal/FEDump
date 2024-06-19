@@ -1,7 +1,7 @@
 import React from "react";
 import DarkModeIcon from "@/public/darkMode.svg";
 
-import useStore from "../../store/useDarkModeStore";
+import useStore from "../../../src/store/useDarkModeStore";
 
 const DarkModeToggle = () => {
   const darkMode = useStore((state) => state.darkMode);

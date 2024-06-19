@@ -1,16 +1,18 @@
+"use client";
+
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import DarkModeToggle from "../components/atoms/DarkModeToggle";
+import DarkModeToggle from "./components/atoms/DarkModeToggle";
 
 import Loading from "./Loading";
-import SearchHeader from "../widget/post/Appbar";
+import SearchHeader from "./Appbar";
 
-import ScrollToTop from "./../components/atoms/ScrollToTop";
-import ContentEditing from "../features/post/ui/ContentEditing";
-import ContentView from "../widget/post/ui/ContentView";
-import { useEditPost } from "../features/post";
-import { useGetPostDetailsQuery } from "../entities/post";
+import ScrollToTop from "./components/atoms/ScrollToTop";
+import ContentEditing from "./ContentEditing";
+import ContentView from "./ContentView";
+import { useEditPost } from "../src/features/post";
+import { useGetPostDetailsQuery } from "../src/entities/post";
 
 const Content: React.FC = () => {
   const { id } = useParams<{ id: string }>() as { id: string };

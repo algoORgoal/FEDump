@@ -1,28 +1,28 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Board from './pages/Board';
-import Content from './pages/Content';
-import Write from './pages/Write';
+import Board from "./Board";
+import Content from "./Content";
+import Write from "./Write";
 
-import Loading from './pages/Loading';
+import Loading from "./Loading";
 
 const Router = () => {
   const router = createBrowserRouter([
     {
       index: true,
-      path: '/',
+      path: "/",
       element: <Board />,
     },
     {
-      path: '/content/:id',
+      path: "/content/:id",
       element: <Content />,
     },
     {
-      path: '/write',
+      path: "/write",
       element: <Write />,
     },
     {
-      path: 'loading',
+      path: "loading",
       element: <Loading />,
     },
   ]);

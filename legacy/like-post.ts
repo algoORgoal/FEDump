@@ -1,9 +1,9 @@
 // 미션: 좋아요 버튼 클릭 시 +1 PATCH mutation hook 구현하기
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import instance from "../../../shared/api/instance";
-import { POST_DETAILS_QUERY_KEY } from "../../../entities/post/api/post-details.query";
-import { POST_LIST_QUERY_KEY } from "../../../entities/post/api/post-list.query";
+import instance from "../src/shared/api/instance";
+import { POST_DETAILS_QUERY_KEY } from "./post-details.query";
+import { POST_LIST_QUERY_KEY } from "./post-list.query";
 
 const likePost = async ({ likes, id }: { likes: number; id: string }) => {
   const response = await instance.patch(`posts/${id}`, {

@@ -1,5 +1,5 @@
 import React from "react";
-import useStore from "../../store/useDarkModeStore";
+import useStore from "../../../src/store/useDarkModeStore";
 import TopButtonIcon from "@/public/topChevronDouble.svg";
 
 const ScrollToTop = () => {

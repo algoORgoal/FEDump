@@ -1,4 +1,4 @@
-import { useGetPostListQuery } from "../../../entities/post";
+import { useGetPostListQuery } from "../src/entities/post";
 import { useDebouncedQuery } from "./debounced-query";
 
 export const useMatchingList = () => {

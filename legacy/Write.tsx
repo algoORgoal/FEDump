@@ -1,11 +1,13 @@
+"use client";
+
 import React, { useState } from "react";
-import SearchHeader from "../widget/post/Appbar";
+import SearchHeader from "./Appbar";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
 import uuid from "react-uuid";
-import { formatDate } from "../shared/lib/formatDate";
-import ScrollToTop from "../components/atoms/ScrollToTop";
-import { useSubmitPost } from "../features/post";
+import { formatDate } from "../src/shared/lib/formatDate";
+import ScrollToTop from "./components/atoms/ScrollToTop";
+import { useSubmitPost } from "../src/features/post";
 
 const Write = () => {
   // useContentSubmitMutation을 호출하여 contentSubmitMutation 객체 생성

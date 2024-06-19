@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { useLikePost } from "..";
+import { useLikePost } from "../src/features/post";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 
 interface LikeButtonProps {

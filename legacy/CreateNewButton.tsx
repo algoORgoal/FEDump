@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import PencilSquareIcon from "@/public/pencilSquare.svg";
 
-import useStore from "../../../store/useDarkModeStore";
+import useStore from "../src/store/useDarkModeStore";
 
 export const CreateNewButton = () => {
   const darkMode = useStore((state) => state.darkMode);

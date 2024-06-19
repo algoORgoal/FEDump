@@ -15,8 +15,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useSearchStore } from "../../features/search";
-import { SearchBar } from "../../features/search/ui/SearchBar";
+import { useSearchStore } from "../src/features/search";
+import { SearchBar } from "./SearchBar";
 import { useState } from "react";
 import Link from "next/link";
 

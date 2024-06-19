@@ -1,8 +1,10 @@
-import BoardIntroduce from "../widget/post/ui/BoardIntroduce";
-import BoardFilterLine from "../widget/post/ui/BoardFilterLine";
-import DarkModeToggle from "../components/atoms/DarkModeToggle";
-import Feed from "../widget/post/ui/Feed";
-import ScrollToTop from "./../components/atoms/ScrollToTop";
+"use client";
+
+import BoardIntroduce from "./BoardIntroduce";
+import BoardFilterLine from "./BoardFilterLine";
+import DarkModeToggle from "./components/atoms/DarkModeToggle";
+import Feed from "./Feed";
+import ScrollToTop from "./components/atoms/ScrollToTop";
 
 const Board = () => {
   return (

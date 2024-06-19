@@ -1,5 +1,5 @@
-import instance from "../../../shared/api/instance";
-import { Post } from "../../../shared/types/post";
+import instance from "../src/shared/api/instance";
+import { Post } from "./post";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 export const getDetails = async (id: string) => {

@@ -1,4 +1,4 @@
-import { CreateNewPostButton } from "../../../features/post";
+import { CreateNewPostButton } from "../src/features/post";
 
 interface Props {
   // 필터는 9주차 미션에서 미사용

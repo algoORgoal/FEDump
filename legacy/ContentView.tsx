@@ -4,8 +4,8 @@ import { IconButton } from "@mui/material";
 import BuildIcon from "@mui/icons-material/Build";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
-import { PostLikeButton, useDeletePost } from "../../../features/post";
-import { LikeStat } from "../../../entities/post";
+import { PostLikeButton, useDeletePost } from "../src/features/post";
+import { LikeStat } from "../src/entities/post";
 
 interface Props {
   id: string;
