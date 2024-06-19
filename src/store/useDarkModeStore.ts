@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 export interface State {
   darkMode: boolean;
@@ -19,9 +19,9 @@ const useStore = create<State>((set) => ({
     set((state) => {
       const newDarkMode = !state.darkMode;
       if (newDarkMode) {
-        document.documentElement.classList.add('dark');
+        document.documentElement.classList.add("dark");
       } else {
-        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove("dark");
       }
       return { darkMode: newDarkMode };
     }),

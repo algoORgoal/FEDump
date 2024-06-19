@@ -20,18 +20,15 @@ export const Card = ({
   const trimmedTitle = trimTitle(title);
 
   return (
-    <div
-      className="w-full h-auto bg-white dark:bg-zinc-700 text-zinc-700 dark:text-white border-b-2
-    overflow-hidden p-4 flex flex-col justify-between transform transition-all duration-300 ease-in-out hover:scale-105 relative hover:z-10"
-    >
+    <div className="relative flex h-auto w-full transform flex-col justify-between overflow-hidden border-b-2 bg-white p-4 text-zinc-700 transition-all duration-300 ease-in-out hover:z-10 hover:scale-105 dark:bg-zinc-700 dark:text-white">
       <div>
-        <div className="font-bold text-lg">{trimmedTitle}</div>
+        <div className="text-lg font-bold">{trimmedTitle}</div>
       </div>
       <div>
-        <div className="text-left text-zinc-500 text-xs ">
+        <div className="text-left text-xs text-zinc-500">
           {new Date(publishedAt).toDateString()}
         </div>
-        <div className="flex justify-between items-center mt-2">
+        <div className="mt-2 flex items-center justify-between">
           {stats &&
             Object.values(stats).map((stat, index) => (
               <Fragment key={index}>{stat}</Fragment>

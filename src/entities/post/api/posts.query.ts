@@ -20,8 +20,8 @@ export const getPosts = async (): Promise<Post[]> => {
     .filter(
       (directoryDirent) =>
         !Object.values(PostPages).some(
-          (PostPage) => PostPage === directoryDirent.name
-        )
+          (PostPage) => PostPage === directoryDirent.name,
+        ),
     );
 
   const posts = await Promise.all(
@@ -32,7 +32,7 @@ export const getPosts = async (): Promise<Post[]> => {
         metadata: { title: string; publishedAt: string };
       };
       return { slug: name, ...metadata };
-    })
+    }),
   );
 
   posts.sort((a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt));

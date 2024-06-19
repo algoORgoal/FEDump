@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
 // axios 인스턴스 생성
 const instance = axios.create({
   // json-server
-  baseURL: 'http://localhost:8080',
+  baseURL: "http://localhost:8080",
 
   // 실제 연결
 });
@@ -17,14 +17,14 @@ instance.interceptors.request.use(
   (error) => {
     // 요청 에러 처리
     return Promise.reject(error);
-  }
+  },
 );
 
 // 응답 인터셉터
 instance.interceptors.response.use(
   (response) => {
     return response;
-  }
+  },
   //   (error) => {
   //     // 응답 에러 처리
   //     throw new Error(' data error');

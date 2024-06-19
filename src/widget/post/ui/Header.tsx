@@ -7,20 +7,20 @@ import { Separator } from "@/src/shared/ui/separator";
 
 export function Header() {
   return (
-    <header className="flex flex-row items-center gap-x-1 justify-between w-full h-auto">
+    <header className="flex h-auto w-full flex-row items-center justify-between gap-x-1">
       <Link
         href="/"
-        className="flex flex-row justify-start items-center w-auto h-12"
+        className="flex h-12 w-auto flex-row items-center justify-start"
       >
-        <div className=" font-bold text-2xl">FE Dump</div>
+        <div className="text-2xl font-bold">FE Dump</div>
         <Logo width={48} height={48} />
       </Link>
-      <div className="flex flex-row justify-center items-center w-auto h-12">
+      <div className="flex h-12 w-auto flex-row items-center justify-center">
         <a
           href="https://github.com/algoORgoal"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-12 h-12 flex items-center justify-center"
+          className="flex h-12 w-12 items-center justify-center"
         >
           <GithubLogo />
         </a>
@@ -29,7 +29,7 @@ export function Header() {
           href="https://www.linkedin.com/in/byeolchan-kim-206b1a13a"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-12 h-12 flex items-center justify-center"
+          className="flex h-12 w-12 items-center justify-center"
         >
           <LinkedInLogo />
         </a>
