@@ -9,7 +9,7 @@ export function Header() {
   return (
     <header className="flex flex-row items-center gap-x-1 justify-between w-full h-auto">
       <Link
-        href="/posts"
+        href="/"
         className="flex flex-row justify-start items-center w-auto h-12"
       >
         <div className=" font-bold text-2xl">FE Dump</div>
