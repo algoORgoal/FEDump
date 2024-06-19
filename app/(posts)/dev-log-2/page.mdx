@@ -1,0 +1,136 @@
+zod
+
+.refine
+When you need to customize with your own rules, you can use `.refine()` method.
+some methods take errorMap instead of errorMessage itself.
+
+```tsx
+const getEnvVariable = (key: string) => {
+  console.log(key); // "BASE_URL"
+  console.log(process.env[key]); // undefined
+  console.log(process.env["BASE_URL"]); // http://localhost:3000
+
+  if (process.env[key] === undefined) {
+    throw new Error(`Environment variable is undefined`);
+  }
+  return process.env[key];
+};
+```
+
+devtools only picks up one store
+
+```tsx
+<BoothStoreProvider>
+  <AuthStoreProvider>
+    <div className="mx-auto flex min-h-screen flex-col items-stretch justify-start sm:w-[640px]">
+      <Header />
+      <div className="flex flex-auto flex-col items-stretch justify-start px-5">
+        {children}
+      </div>
+    </div>
+  </AuthStoreProvider>
+</BoothStoreProvider>
+```
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rh5jb0vn340c4bkzwtc9.png)
+
+When BoothStoreProvider is wrapping AuthSToreProvider, BoothStoreProvider is displayed.
+
+While AuthStoreProvider is wrapping BoothStoreProvider,
+AuthStoreProvider is displayed.
+
+```tsx
+<AuthStoreProvider>
+  <BoothStoreProvider>
+    <div className="mx-auto flex min-h-screen flex-col items-stretch justify-start sm:w-[640px]">
+      <Header />
+      <div className="flex flex-auto flex-col items-stretch justify-start px-5">
+        {children}
+      </div>
+    </div>
+  </BoothStoreProvider>
+</AuthStoreProvider>
+```
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3o1kixe3k6sjpfadgmvx.png)
+
+```tsx
+const authFetchFuncList = fetchFuncList.map(
+  (func) =>
+    async (...params: any[]): Promise<any> => {
+      const originalResponse = await func(accessToken, params);
+
+      const { code: originalCode, data: originalData } =
+        await originalResponse.json();
+
+      if (originalCode !== 2000) {
+        return originalData;
+      }
+
+      console.log("access token 만료");
+
+      const restoredResponse = await restoreAccessToken(refreshToken);
+      const { headers: restoredHeaders } = restoredResponse;
+      const { code: restoredCode } = await restoredResponse.json();
+
+      if (restoredCode !== 2003) {
+        const authorization = restoredHeaders.get(HTTPHeaderKey.AUTHORIZATION)!;
+        const reissuedAccessToken = getAccessToken(authorization);
+        refresh(reissuedAccessToken);
+
+        return await func(reissuedAccessToken, ...params);
+      }
+      console.log("refresh token 만료");
+      reset();
+    },
+);
+```
+
+Why did I write this code?
+I don't want every function to get authFetch as an argument and run it. Every time we need it, we call them.
+
+## React effects run before the store has been fully hydrated by loading from localStorage
+
+```tsx
+useEffect(() => {
+  if (!isHydrated) {
+    return;
+  }
+  router.push("/sign-in");
+}, [router, currentAuthType, requiredAuthType, isHydrated]);
+```
+
+auth-store.tsx
+
+```tsx
+export type AuthState = {
+  accessToken: string;
+  refreshToken: string;
+  isHydrated: boolean;
+};
+
+export type AuthActions = {
+  setCredentials: (credentials: AuthState) => void;
+  refresh: (newAccessToken: string) => void;
+  reset: () => void;
+  setHydrated: () => void;
+};
+
+export type AuthStore = AuthState & AuthActions;
+
+export const defaultInitState = {
+  accessToken: "",
+  refreshToken: "",
+  isHydrated: false,
+} satisfies AuthState;
+
+...inside createStore()
+{
+    name: "auth-storage",
+    onRehydrateStorage: () => (state, error) => {
+        state?.setHydrated();
+    },
+},
+```
+
+After the hydration of localStorage has finished, onRehydrateStorage() will be invoked. By setting the flag variable to be true, we can run the effect when data has been loaded from localStorage.

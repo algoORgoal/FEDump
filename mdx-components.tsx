@@ -19,10 +19,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ol: Ordered,
     ul: Unordered,
     img: (props) => (
-      <div className="relative w-full h-96">
+      <div className="relative h-96 w-full">
         <Image
           fill
           {...(props as ImageProps)}
+          alt={props.alt || ""}
           sizes="100vw"
           style={{ objectFit: "contain" }}
         />

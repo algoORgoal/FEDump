@@ -1,0 +1,73 @@
+## Adding Element to the DOM and Removing Element from the DOM
+
+You can set the state in any form.
+
+```ts
+const [parent] = useAutoAnimate();
+const [show, setShow] = useState(false);
+
+const change = () => setShow((show) => !show);
+
+return (
+  <div ref={parent}>
+    <button onClick={change}>Click here</button>
+    {show && <div>I popped up!</div>}
+  </div>
+);
+```
+
+## Moving element from the DOM
+
+- If you want to move elements as if you juggle with them, you must change the order of items in the array instead of conditionally rendering using a boolean or a number state.
+
+❌ Each element will disappear and appear instead of moving around to its new position.
+
+```tsx
+const [progress, setProgress] = useState(0);
+const [parent] = useAutoAnimate();
+
+<div
+  ref={parent}
+  className="flex h-[15px] w-[70px] items-center justify-between"
+>
+  {[0, 1, 2].map((element) =>
+    element === progress ? (
+      <RedDotIcon key={element} />
+    ) : (
+      <DotIcon key={element} />
+    ),
+  )}
+</div>;
+```
+
+- AutoAnimate will not work when you use the index as `key` value instead of the array item itself.
+
+❌ AutoAnimate won't work here
+
+```tsx
+// Use array instead of a primitive value if you want to see them switching their positions
+const [colors, setColors] = useState(["red", "gray", "gray"]);
+const [parent] = useAutoAnimate();
+
+const change = () => {
+  const juggled = [...colors];
+  juggled.unshift(juggled.pop()!);
+  setBalls(juggled);
+};
+
+<div ref={parent} className="flex justify-between">
+  {balls.map((color, index) => (
+    <li key={index}>{color === "red" ? <RedDotIcon /> : <DotIcon />}</li>
+  ))}
+</div>;
+```
+
+✅ It works!
+
+```tsx
+<div ref={parent} className="flex justify-between">
+  {balls.map((color, index) => (
+    <li key={index}>{color === "red" ? <RedDotIcon /> : <DotIcon />}</li>
+  ))}
+</div>
+```

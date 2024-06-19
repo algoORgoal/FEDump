@@ -1,6 +1,9 @@
 {
   "name": "FE Dump - A blog by byeol_chance",
   "short_name": "FE Dump",
+  "description": "A personal blog by byeol_chance. Frontend stuffs are uploaded usually.",
+  "start_url": "/",
+  "display": "standalone",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -20,6 +23,5 @@
     }
   ],
   "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  "background_color": "#ffffff"
 }

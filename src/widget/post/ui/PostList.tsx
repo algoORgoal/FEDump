@@ -1,5 +1,5 @@
 import { PostCard } from "@/src/entities/post";
-import { getPosts } from "@/src/entities/post/api/post-list.query";
+import { getPosts } from "@/src/entities/post/api/posts.query";
 
 import React from "react";
 

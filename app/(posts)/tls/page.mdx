@@ -1,0 +1,10 @@
+1. Server generates its own public/private key pairs before deployment.
+2. Server sends a certificate signing request to the CA before deployment.
+3. Server receives the certificate signed by the CA before deployment.
+4. Client and Server establishes a TCP connection.
+5. Client send a 'ClientHello' request. It includes cipher suites, session id, and ssl protcol version.
+6. Client receives the signed CA from server and unsigns it using the public key provided by the CA.
+7. Client validates the unsigned CA by checking validity period, certificate revocation and domain name matching.
+8. If the certificate is valid, client generates a symmetric key(generates pre-master secrete) and signs it using the server's public key.
+9. server unsigns the signed key using its private key.
+10. handshake finished.

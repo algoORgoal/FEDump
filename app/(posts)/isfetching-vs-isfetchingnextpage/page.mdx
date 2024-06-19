@@ -1,0 +1,8 @@
+Here's what the docs says:
+The isFetchingNextPage and isFetchingPreviousPage booleans are now available to distinguish between a background refresh state and a loading more state
+
+isFetching
+`isFetching` checks if the there is ongoing data fetching. Therefore, it could be true on initial page load and background refresh(when the data is stale)
+
+isFetchingNextPage(isFetchingPreviousPage too)
+`isFetchingNextPage` is a boolean flag that represents if the query is fetching next page or not. Therefore, it doesn't turn true even on initial page load and background refreshing. It only turns true when you already fetched the first page and the next page is being loaded.

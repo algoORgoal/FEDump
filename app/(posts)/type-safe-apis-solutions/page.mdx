@@ -1,0 +1,62 @@
+Note that this post is the ongoing work. It's yet to be finished.
+
+## Introduction
+
+I felt like I wasted a lot of time communicating with the Backend Engineers about what types JSON properties actually are. They provided me with some API spec written by their own, but I spent a lot of time pointing out what's wrong and waiting for the fix. Therefore, I decided to look into type-safe API solutions.
+
+## Example
+
+This is the common situation you run into:
+
+```typescript
+export const addBooth = async (booth: Booth) => {
+  const response = await fetch(`${API_URL}/api/booths`, {
+    method: HTTPMethod.POST,
+  });
+  const data = await response.json();
+  return data;
+};
+```
+
+Here, the type of the variable `data` is `any`, since typescript cannot deduce the type of http response. Therefore, our frontend developers entirely relied on API specifiaction written by our backend developers on Notion.
+
+![Our API spec on Notion](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tg090guaf2nfj5uxr0si.png)
+
+However, I found this process pretty inefficient. First off, backend developers need to spend time writing the API spec. Second, they might make mistakes and sometimes it takes a lot of time when I report the issues and get the answers. Lastly, I also report issues created by my own mistakes. That's how I got interested in type-safe solutions to reduce miscommunication issues and errors.
+
+## OpenAPI
+
+- It's a way to describe RESTful APIs. It started as Swagger API, but later changed its name to OpanAPI.
+- Swagger is a toolkit that lets you write OpenAPI spec using JSON and renders OpenAPI Spec documents on the web.
+- If your team uses Restful APIs, then you can take advantage of Swagger.
+
+![Swagger UI](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/k0krsxjuxnnhxb84hgcn.png)
+In Swagger UI like this, you can check the types and rules of JSON properties by checking the schema backend engineers wrote for you. Note it doesn't work well by default, so you should kindly ask your backend developers for a double-check.
+
+## GraphQL
+
+- In GraphQL, requests and responses are defined in the schema formats.
+- It can also solve the problem of overfetching and underfetching.
+- Overfetching means receiving more data than the client needs.
+- Underfetching means receiving less data than the client needs, and the client sends multiple requests.
+- The whole team needs to work their asses off to learn GraphQL.
+- It would be great when your application has a lot of endpoints, the team has separated frontend and backend developers, overfetching and underfetching happen quite often, and has enough time to learn GraphQL.
+
+## tRPC(typescript Remote Procedure Control)
+
+- Type definitions are shared between the client and the server.
+- The API server must be written in typescript. If you're in a large team and the server should be used in a different language, tRPC is not a good choice.
+- You should retain a monorepo or deploy an npm package to share the types between the client and the server.
+- If you're using Server Actions, you can ditch tRPC. Once your server action logic gets complicated, you can consider using them altogether.
+
+## Other solutions
+
+Dear readers: language-neutral protocols have been around even before tRPC and GraphQL came out. You can check out these protocol-level type-safety tools as well.
+
+- Protobuf: it's a data-serialization protocol. Instead of transferring JSON, this protocol sends protocol buffers.
+
+> Data serialization process transforms objects into binary format so that data can be sent to the network. On the physical layer, these objects are just sent in the form of binary via cables.
+
+## Conclusion
+
+I haven't used GraphQL and tRPC. When I get a chance to use them I'll add more thoughts.

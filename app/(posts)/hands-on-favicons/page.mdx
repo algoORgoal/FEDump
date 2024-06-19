@@ -1,0 +1,102 @@
+[Masa's blog post](https://dev.to/masakudamatsu/favicon-nightmare-how-to-maintain-sanity-3al7) introduces how you can use favicon in 2023. In summary, he says you only need to include four types of images: ico favicon, svg favicon, apple-touch-icons, and web manifest icons. I wanted to play around with it to test if it works in 2024.
+
+## What we can achieve from appropriate favicons
+
+- It can give customers a sense of your brand if you're running a business.
+
+## Project Settings
+
+### Directory Structure
+
+![Directory structure](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xzrb7siw1v0ofyd425jw.png)
+
+### `favicon.svg` preview
+
+![SVG icon preview](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4gxlyopnx4n17dxkyqwm.png)
+
+- For the future-proof favicon, we should use **`.svg` favicons**. Display technology improves consistently, at the same time there are existing devices we should support. `.svg` icons solve this problem since `.svg` icons don't get affected by screen size or resolutions since they consist of vectors and shapes. You'll be able to ensure your favicon looks good on all upcoming and current devices.
+
+- When the browser tab is dark, you need to change the color of the favicon. It's only possible with `.svg` favicons.
+
+- [If you want to show your icon as a search result of google, the favicon should be in the multiple of 48\*48px or 1:1 ratio svg](https://developers.google.com/search/docs/appearance/favicon-in-search). Since adding more 48px icon is a conversome, SVG is a go-to option.
+
+### `favicon.ico` preview
+
+![.ico favicon preview](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gnkbahz3po6cx2yq6htm.png)
+
+![SVG icon compatibility in CanIUse.com](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/q0slbte3rjlj4nb5mx3a.png)
+
+- According to [CanIUse.com](https://caniuse.com/link-icon-svg), only 72% of the browsers support svg icons. What's worse, the latest version of Safari(iOS, iPadOS, and macOS) doesn't fully support .svg icons. Therefore, you should polyfill svg icons for legacy browsers using `.ico` favicons. `.ico` favicons are supported by all browsers.
+
+> [Polyfill means putting a piece of code to support older browsers that natively don't support some features.](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill)
+
+## Test Results
+
+- I'm using the latest version of Chrome, so it supports `svg` favicons.
+- However, the favicon selection algorithm of the browser chooses `.ico` favicons over `svg` favicons depending on how they are placed in the markup.
+- Note that `size` attribute plays an important role here.
+
+### 1. Both without `size` attribute
+
+```HTML
+<link rel="icon" href="/favicon.ico" />
+<link rel="icon" href="/favicon.svg" />
+```
+
+![.ico favicon on the browser tab](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ek70ogzhl01tv93srpdt.png)
+
+- `.ico` icon rendered instead of `.svg` icon on the tab.
+
+### 2. Both with `sizes='any'`
+
+```HTML
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
+```
+
+![.ico favicon on the browser tab](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xy5h4bx8kml765088in4.png)
+
+- `.ico` icon rendered on the tab instead of `.svg` icon.
+
+### 3. Only '.ico' favicon with `sizes='any'`
+
+```HTML
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+```
+
+![.ico favicon on the browser tab](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sn1syev9lpqhdzjo70pv.png)
+
+- `.ico` icon rendered on the tab instead of `.svg` icon.
+
+### 4. Only '.svg' favicon with `sizes='any'`
+
+```HTML
+<link rel="icon" href="/favicon.ico" />
+<link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
+```
+
+![.ico favicon on the browser tab](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/v0lsz5s2x85d5m8axyix.png)
+
+- `.ico` icon rendered on the tab instead of `.svg` icon.
+
+### 5. Setting `sizes='48x48'`
+
+```HTML
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+```
+
+![.svg favicon on the browser tab](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6mgi30g2d1jlnr8uqij5.png)
+
+- `.svg` icon rendered on the tab
+- We can see it finally does what we intend to. According to the original post, the favicon selection algorithm choose the last icon among the best appropriate ones in the markup, and it finds `svg` favicon more appropriate when `.svg` favicon is set to `sizes='any'` and `.ico` favicon is set to `sizes=numberxnumber`.
+
+## Conclusion
+
+To make favicons work properly, you can set your icons this way.
+
+```HTML
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
+```
