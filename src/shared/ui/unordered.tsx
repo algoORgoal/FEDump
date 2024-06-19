@@ -1,5 +1,5 @@
-import React, { ComponentPropsWithRef } from "react";
+import { ComponentPropsWithoutRef } from "react";
 
-export default function Unordered(props: ComponentPropsWithRef<"ul">) {
+export default function Unordered(props: ComponentPropsWithoutRef<"ul">) {
   return <ul {...props} className="list-disc" />;
 }
