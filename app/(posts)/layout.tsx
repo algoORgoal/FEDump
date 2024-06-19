@@ -4,7 +4,7 @@ import { Header } from "@/src/widget/post/ui/Header";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="w-full md:w-[768px] mx-auto">
+    <div className="mx-auto w-full md:w-[768px]">
       <Header />
       {children}
     </div>

@@ -1,5 +1,5 @@
-
 ## Adding Element to the DOM and Removing Element from the DOM
+
 You can set the state in any form.
 
 ```ts
@@ -37,14 +37,15 @@ const [parent] = useAutoAnimate();
       <DotIcon key={element} />
     ),
   )}
-</div>
+</div>;
 ```
 
 - AutoAnimate will not work when you use the index as `key` value instead of the array item itself.
 
 ❌ AutoAnimate won't work here
+
 ```tsx
-// Use array instead of a primitive value if you want to see them switching their positions  
+// Use array instead of a primitive value if you want to see them switching their positions
 const [colors, setColors] = useState(["red", "gray", "gray"]);
 const [parent] = useAutoAnimate();
 
@@ -56,20 +57,17 @@ const change = () => {
 
 <div ref={parent} className="flex justify-between">
   {balls.map((color, index) => (
-    <li key={index}>
-      {color === "red" ? <RedDotIcon /> : <DotIcon />}
-    </li>
+    <li key={index}>{color === "red" ? <RedDotIcon /> : <DotIcon />}</li>
   ))}
-</div>
+</div>;
 ```
 
 ✅ It works!
+
 ```tsx
 <div ref={parent} className="flex justify-between">
   {balls.map((color, index) => (
-    <li key={index}>
-      {color === "red" ? <RedDotIcon /> : <DotIcon />}
-    </li>
+    <li key={index}>{color === "red" ? <RedDotIcon /> : <DotIcon />}</li>
   ))}
 </div>
 ```

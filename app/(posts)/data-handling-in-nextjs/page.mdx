@@ -1,30 +1,37 @@
-
 ## Data Handling strategies
+
 Server components give you more options on how you fetch/update data since you can query the database directly in your next.js app or use REST or GraphQL to communicate with a remote API server.
 
 ### Using APIs
+
 This is the most common way to manage data fetching. Frontend Engineers and backend Engineers decide the endpoints and communicate over HTTP(s) to send requests and responses. REST and GraphQL are the most common API architectures. If you have your backend team taking care of the database, then you will probably stick to this approach. Your backend team is free to **choose their own programming language** to build their server, and they can **scale out** in whatever way they want. This would be the most desirable approach if your server needs to **support other platforms** such as iOS, Android, MacOS, and Windows.
 
 ### Querying Database in Next.js
+
 You can get data directly inside Server Components and update data inside Server Actions. Especially if you're using ORMs like `Prisma` or `Drizzle`, they are type safe. This means you don't need to remember the endpoint and the type of body, and you can always check the type definitions and warnings provided by their vscode extensions. One major downside is that Server Actions are not supported by other platforms, so you need to migrate all the logic in a different form. However, Expo Router lets you use Server Components in React Native, so stay up to date! We might be able to use Server Actions one day!
 
 ## Data fetching
 
 ### Using `fetch()` on the server
+
 Next.js extends the native fetch() API if you use them inside Server Components. You can make a Server Component `async` and get the data by putting `await` syntax in front of `fetch()`. You must create a `loading.js` or use `Suspense` component if you don't want it to block other components from fetching.
 
 ### Using Route Handlers on the Client
+
 Route handlers can be used when you don't want to expose credentials like API tokens to the client. Route handlers are cached when you use `GET` HTTP method inside them. Using `cookies()`, `headers()`, or any other HTTP methods will make them uncached.
 
 ### Data Fetching on the Client
-You can fetch data on the client based on user interactions like infinite scrolling or real-time updates like messaging. Also, there might be some situations where you want to support native platforms, and you might not be able to use server components. 
+
+You can fetch data on the client based on user interactions like infinite scrolling or real-time updates like messaging. Also, there might be some situations where you want to support native platforms, and you might not be able to use server components.
 
 ## Benefits of Data Fetching on the Server
 
 ### Multiple round-trips become single
+
 If you `fetch()` multiple times with the same URL and options across a single route, Next.js stores the result of that `fetch()` the first time it runs and reuses it for the same fetch invocations. This makes multiple requests into a single one.
 
 ### Reducing Latency and Improves Performance
+
 The distance between the client and the API server is likely longer than between the rendering server and the API server because the rendering server and the API server are mostly located at the same data center, while the client and the API server communicate over the internet. Therefore, data fetching on the server has lower latency.
 
 #### Data fetching on the client
@@ -61,6 +68,7 @@ Client                  Rendering Server         API Server
 **However, note that your next.js server and API server might not be to each other if you deployed them on different cloud service providers.** These cloud service providers are physically located in separate places and don't even have optimized network connections. This means the latency might not reduce, and performance doesn't improve dramatically. Let's take an extreme example. Imagine you deployed next.js on vercel and node.js server on Google Cloud. Vercel might deploy your server in Florida while Google Cloud might deploy your server in Paris. The connection between AWS and Vercel is not optimized and the distance is long, causing a lot of latency even though you fetch data on the server.
 
 #### Fetching data on the server with a short distance
+
 ```
 Client                  Rendering Server (CSP1 Region1)         API Server (CSP1 Region1)
    |                       |                                      |
@@ -73,6 +81,7 @@ Client                  Rendering Server (CSP1 Region1)         API Server (CSP1
 ```
 
 ### Fetching on the server with a long distance
+
 ```
 Client                  Rendering Server (CSP1 Region1)         API Server (CSP2 Region2)
    |                       |                                      |
@@ -86,6 +95,7 @@ Client                  Rendering Server (CSP1 Region1)         API Server (CSP2
 ```
 
 #### Keep your main thread less busy
+
 By default, the browser uses a single thread to execute JavaScript and perform layout, reflows, and garbage collection. If event processing and painting get delayed, users are probably not happy with using our website. Data fetching on the server can help the main thread with these jobs, making our website more responsive.
 
 - Initializing requests and processing responses

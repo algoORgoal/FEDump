@@ -1,4 +1,3 @@
-
 Vercel doesn't support deploying an organization repository for free, you will need some workaround if you want to stay on the hobby plan. In this post, I'll talk how you can do it with github actions. I hope the pricing boundary doesn't stop student developers from building and shipping new ideas.
 
 This post is entirely inspired by [A github gist tutorial](https://gist.github.com/ky28059/1c9af929a9030105da8cf00006b50484).
@@ -8,7 +7,7 @@ This post is entirely inspired by [A github gist tutorial](https://gist.github.c
 - This guideline assumes that you're working on a Next.js project.
 - Be careful not to leak vercel keys and tokens.
 
-## How to 
+## How to
 
 - Install vercel cli by running the following command:
 
@@ -35,6 +34,7 @@ vercel
 - Write github workflow to run github actions. vercel-action[https://github.com/amondnet/vercel-action] will help you deploy to your hobby plan project.
 
 .github/workflows/vercel-merge.yml
+
 ```yml
 # vercel-merge.yml
 name: Deploy to vercel on merge
@@ -55,6 +55,7 @@ jobs:
           vercel-org-id: ${{ secrets.ORG_ID}}
           vercel-project-id: ${{ secrets.PROJECT_ID}}
 ```
+
 This workflow deploys to vercel on merging to main.
 
 - .github/workflows/vercel-pull-request.yml
@@ -80,6 +81,7 @@ jobs:
         run: |
           echo ${{ steps.vercel-deploy.outputs.preview-url }}
 ```
+
 This workflow creates a preview on pull request.
 
 - VERCEL_TOKEN is the token you created on the vercel website.

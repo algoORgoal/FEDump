@@ -15,31 +15,33 @@ So I tried Jest/React-Testing-Libary and was quite satisfied with these technolo
 ### Finding Alternatives
 
 #### Another javascript-implemented DOM
+
 - [happydom](https://github.com/capricorn86/happy-dom): It's another javascript implementation of DOM. However, its community is way smaller than `jsdom`. The repository has 2.9k+ stars, so I can't make sure that I would get a huge community support.
 
 #### Using real DOM
+
 - real DOM: `jsdom` lets us see the result of component testing immediately in the local development environment whenever our codebase changes. That's one of the important part of automated testing. Once we start using real DOM, it's clear that the execution time of testing will be too slow.
 
 ### Innovative Solution
+
 - When you develop in local development, you typically run `yarn storybook` and see the result. Since Storybook already renders stories(components) in real DOM, it can reuse the rendered components to run component testing. [According to Storybook's Benchmark, Storybook interaction testing is 30% slower than jest/react-testing-library and sometimes it is even faster](https://github.com/storybookjs/storybook/discussions/16861#discussioncomment-2513340). Internally, Storybook uses jest/playwright to run the tests.
 
 - In addition, it becomes easier to track down bugs since you can see the interaction flow visually in Storybook, rather than seeing the dumped HTML when the test fails. Debugging is made easier.
 
 - Storybook's testing methods are similar to those of Jest/React-Testing-Library, so it was clear that I would get used to it easily.
 
-
 ## How to set up
 
 ### Test Runner
 
-1. Install test runner
+1.  Install test runner
 
+        ```
+
+    yarn add --dev @storybook/test-runner
     ```
-yarn add --dev @storybook/test-runner
-    ```
 
-
-2. Run the test-runner
+2.  Run the test-runner
 
     ```
     yarn test-storybook
@@ -49,66 +51,67 @@ yarn add --dev @storybook/test-runner
 
 1. Add this to config of your ./storybook/main.ts
 
-    ```ts
-    const config: StorybookConfig = {
-      addons: [
-        '@storybook/addon-interactions',
-        ...,
-      ],
-    }
-    ```
+   ```ts
+   const config: StorybookConfig = {
+     addons: [
+       '@storybook/addon-interactions',
+       ...,
+     ],
+   }
+   ```
 
 2. Write an interaction test.
 
-    ```ts
-    // More on interaction testing: 
-    // https://storybook.js.org/docs/writing-tests/interaction-testing
-    export const LoggedIn: Story = {
-      play: async ({ canvasElement }) => {
-        const canvas = within(canvasElement);
-        const loginButton = canvas.getByRole("button", { name: /Log in/i });
-        await expect(loginButton).toBeInTheDocument();
-        await userEvent.click(loginButton);
-        await expect(loginButton).not.toBeInTheDocument();
+   ```ts
+   // More on interaction testing:
+   // https://storybook.js.org/docs/writing-tests/interaction-testing
+   export const LoggedIn: Story = {
+     play: async ({ canvasElement }) => {
+       const canvas = within(canvasElement);
+       const loginButton = canvas.getByRole("button", { name: /Log in/i });
+       await expect(loginButton).toBeInTheDocument();
+       await userEvent.click(loginButton);
+       await expect(loginButton).not.toBeInTheDocument();
 
-        const logoutButton = canvas.getByRole("button", { name: /Log out/i });
-        await expect(logoutButton).toBeInTheDocument();
-      },
-    };
-    ```
+       const logoutButton = canvas.getByRole("button", { name: /Log out/i });
+       await expect(logoutButton).toBeInTheDocument();
+     },
+   };
+   ```
 
-  - `play`: this function runs after the story finishes rendering.
-  - `click`: Storybook lets you use `user-events` in the same way as Reac Testing Library.
-  - `expect`: assertion function
-
+- `play`: this function runs after the story finishes rendering.
+- `click`: Storybook lets you use `user-events` in the same way as Reac Testing Library.
+- `expect`: assertion function
 
 ### Test Coverage
+
 Test coverage shows any code lines that tests haven't gone through.
 
 1. Install the addon.
 
-    ```
-    yarn add --dev @storybook/addon-coverage
-    ```
+   ```
+   yarn add --dev @storybook/addon-coverage
+   ```
 
 2. Include the addon in main.ts
 
-    ```ts
-    const config: StorybookConfig = {
-      addons: [
-        '@storybook/addon-coverage', 
-        ...,
-      ],
-    };
-    ```
+   ```ts
+   const config: StorybookConfig = {
+     addons: [
+       '@storybook/addon-coverage',
+       ...,
+     ],
+   };
+   ```
 
 3. Run the test runner with `--coverage option`.
 
-    ```
-    yarn test-storybook --coverage
-    ```
+   ```
+   yarn test-storybook --coverage
+   ```
 
 ### End-to-end Testing
+
 You can navigate to the URL of storybook and do end-to-end testing straight up.
 
 ```ts
@@ -141,21 +144,27 @@ test("has logout button", async ({ page }) => {
 
 ### API Mocking
 
-  1. Install the addon.
+1. Install the addon.
+
 
     ```
+
 yarn add msw msw-storybook-addon --dev
+```
+
+2. Generate service worker to your `public` directory.
+
+
     ```
 
-  2. Generate service worker to your `public` directory.
-
-    ```
 yarn msw init public/
-    ```
+```
 
-  3. Include the addon in .storybook/preview.ts
+3. Include the addon in .storybook/preview.ts
+
 
     ```ts
+
 import { initialize, mswLoader } from 'msw-storybook-addon'
 // Initialize MSW
 initialize()
@@ -169,23 +178,18 @@ const preview = {
 export default preview
     ```
 
-  4. Open your `storybook` URL(http:localhost:6006) and check browser devtools > console tab. If MSW is enabled in your browser, you'll be able to see this log.
+4. Open your `storybook` URL(http:localhost:6006) and check browser devtools > console tab. If MSW is enabled in your browser, you'll be able to see this log.
+
 
     ![msw enabled on console](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ma5bel5uwcmof4u4vim8.png)
 
 
     ![msw enabled on console2](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zgdwyvohdn51mlfkh1uw.png)
 
-  5. You can also see the following log in the console tab if the request was intercepted by MSW.
+5. You can also see the following log in the console tab if the request was intercepted by MSW.
+
 
     ![mocking intercepted by MSW](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zwzor2h1tbmz54eb5m0x.png)
-
-
-
-
-
-
-
 
 ## Issues
 
@@ -199,15 +203,20 @@ You can see that all the tests passed, but the coverage result is not displayed.
 
 #### Workaround
 
-  1. Install `nyc` as a dev dependency.
+1. Install `nyc` as a dev dependency.
+
+
     ```
     yarn add nyc --dev
     ```
-  2. Run this command instead.
+
+2. Run this command instead.
+
+
     ```
     test-storybook --coverage --coverageDirectory coverage && nyc report --reporter=text -t coverage
     ```
-    
+
     `nyc` prints the result on console. This time we tell `nyc` where to pick up the coverage report file(`./coverage`).
 
 ## Troubleshooting
@@ -216,15 +225,13 @@ You can see that all the tests passed, but the coverage result is not displayed.
 
 Let's say you wrote a end-to-end test to see if the following application flow works.
 
-  1. A page renders log-in button.
-  2. User clicks log-in button.
-  3. log-out button is renders.
+1. A page renders log-in button.
+2. User clicks log-in button.
+3. log-out button is renders.
 
 ![Log-in button](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gkmfv90zf79rqwgw7to1.png)
 
-
 ![Log-out button](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jvjr81tawlka10row9fw.png)
-
 
 This is the first version of the test using the rendered component in storybook.
 
@@ -305,6 +312,7 @@ test("it has logout button", async ({ page }) => {
 Now the test succeeds!
 
 ## References
+
 - [How to know what to test](https://kentcdodds.com/blog/how-to-know-what-to-test)
 - [Setting test runner in Storybook](https://storybook.js.org/docs/writing-tests/test-runner)
 - [Unit testing in Storybook](https://storybook.js.org/docs/writing-tests/stories-in-unit-tests)
@@ -313,4 +321,3 @@ Now the test succeeds!
 - [Test coverage in Storybook](https://storybook.js.org/docs/writing-tests/test-coverage)
 - [End-to-end testing in Storybook](https://storybook.js.org/docs/writing-tests/stories-in-end-to-end-tests)
 - [Integrate MSW and Storybook](https://storybook.js.org/addons/msw-storybook-addon)
-

@@ -1,4 +1,3 @@
-
 zod
 
 .refine
@@ -19,6 +18,7 @@ const getEnvVariable = (key: string) => {
 ```
 
 devtools only picks up one store
+
 ```tsx
 <BoothStoreProvider>
   <AuthStoreProvider>
@@ -31,6 +31,7 @@ devtools only picks up one store
   </AuthStoreProvider>
 </BoothStoreProvider>
 ```
+
 ![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rh5jb0vn340c4bkzwtc9.png)
 
 When BoothStoreProvider is wrapping AuthSToreProvider, BoothStoreProvider is displayed.
@@ -47,7 +48,7 @@ AuthStoreProvider is displayed.
         {children}
       </div>
     </div>
- </BoothStoreProvider>
+  </BoothStoreProvider>
 </AuthStoreProvider>
 ```
 
@@ -55,52 +56,52 @@ AuthStoreProvider is displayed.
 
 ```tsx
 const authFetchFuncList = fetchFuncList.map(
-    (func) =>
-      async (...params: any[]): Promise<any> => {
-        const originalResponse = await func(accessToken, params);
+  (func) =>
+    async (...params: any[]): Promise<any> => {
+      const originalResponse = await func(accessToken, params);
 
-        const { code: originalCode, data: originalData } =
-          await originalResponse.json();
+      const { code: originalCode, data: originalData } =
+        await originalResponse.json();
 
-        if (originalCode !== 2000) {
-          return originalData;
-        }
+      if (originalCode !== 2000) {
+        return originalData;
+      }
 
-        console.log("access token 만료");
+      console.log("access token 만료");
 
-        const restoredResponse = await restoreAccessToken(refreshToken);
-        const { headers: restoredHeaders } = restoredResponse;
-        const { code: restoredCode } = await restoredResponse.json();
+      const restoredResponse = await restoreAccessToken(refreshToken);
+      const { headers: restoredHeaders } = restoredResponse;
+      const { code: restoredCode } = await restoredResponse.json();
 
-        if (restoredCode !== 2003) {
-          const authorization = restoredHeaders.get(
-            HTTPHeaderKey.AUTHORIZATION,
-          )!;
-          const reissuedAccessToken = getAccessToken(authorization);
-          refresh(reissuedAccessToken);
+      if (restoredCode !== 2003) {
+        const authorization = restoredHeaders.get(HTTPHeaderKey.AUTHORIZATION)!;
+        const reissuedAccessToken = getAccessToken(authorization);
+        refresh(reissuedAccessToken);
 
-          return await func(reissuedAccessToken, ...params);
-        }
-        console.log("refresh token 만료");
-        reset();
-      },
-  );
+        return await func(reissuedAccessToken, ...params);
+      }
+      console.log("refresh token 만료");
+      reset();
+    },
+);
 ```
 
 Why did I write this code?
 I don't want every function to get authFetch as an argument and run it. Every time we need it, we call them.
 
 ## React effects run before the store has been fully hydrated by loading from localStorage
+
 ```tsx
 useEffect(() => {
-    if (!isHydrated) {
-      return;
-    }
-    router.push("/sign-in");
-  }, [router, currentAuthType, requiredAuthType, isHydrated]);
+  if (!isHydrated) {
+    return;
+  }
+  router.push("/sign-in");
+}, [router, currentAuthType, requiredAuthType, isHydrated]);
 ```
 
 auth-store.tsx
+
 ```tsx
 export type AuthState = {
   accessToken: string;
@@ -131,4 +132,5 @@ export const defaultInitState = {
     },
 },
 ```
+
 After the hydration of localStorage has finished, onRehydrateStorage() will be invoked. By setting the flag variable to be true, we can run the effect when data has been loaded from localStorage.

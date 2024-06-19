@@ -217,7 +217,7 @@ export default function App() {
 ```tsx
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   ...props
 }: ControllerProps<TFieldValues, TName>) => {
@@ -334,7 +334,7 @@ const FormDescription = React.forwardRef<
       id={formDescriptionId}
       className={cn(
         "text-[0.8rem] text-slate-500 dark:text-slate-400",
-        className
+        className,
       )}
       {...props}
     />
@@ -362,7 +362,7 @@ const FormMessage = React.forwardRef<
       id={formMessageId}
       className={cn(
         "text-[0.8rem] font-medium text-red-500 dark:text-red-900",
-        className
+        className,
       )}
       {...props}
     >

@@ -1,5 +1,3 @@
-
-
 RAID a.k.a. Redundant Array of Inexpensive Disks is a storage system. People came up with this idea because I/O operations can be bottlenecks sometimes. By using multiple disks for one logical disk, it can work in a better way.
 
 <aside>
@@ -7,7 +5,7 @@ RAID a.k.a. Redundant Array of Inexpensive Disks is a storage system. People cam
 
 </aside>
 
-Yes, we want our disk to be ‘*Working harder, make it better, do it faster, makes us stronger’.* We need to think about three things here:
+Yes, we want our disk to be ‘_Working harder, make it better, do it faster, makes us stronger’._ We need to think about three things here:
 
 - Capacity - as large as possible!
 - Reliability - tolerant to system failures!
@@ -31,7 +29,6 @@ Basically, we are assuming that all systematic failures can be detected. Note th
 
 ## RAID Level 0: Striping
 
-
 It’s actually not a RAID because it doesn’t have any redundancy.
 
 <aside>
@@ -39,50 +36,40 @@ It’s actually not a RAID because it doesn’t have any redundancy.
 
 </aside>
 
-
 ![RAID-0](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gnxpypmyimsejdqjzizk.png)
-
-
-
 
 We call it ‘striping’ because we can read/write multiple blocks of the same row from the different disks at the same time.
 
 ### Chunk Sizes
 
-
-
 ![RAID-0 big](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cp1lu1hjbc2fp0mshrcm.png)
-
-
-
 
 If the chunk sizes are bigger, a file would be split into a few chunks, leading to less positioning time and less parallelism. If
 
- the chunk sizes are smaller, a file would be split into a lot of chunks, and the parallelism and the positioning time would increase.
+the chunk sizes are smaller, a file would be split into a lot of chunks, and the parallelism and the positioning time would increase.
 
 ### Evaluating RAID-0
 
 - **Performance**
 
 > - Time to process workload = Seek time + Rotational delay + Transfer to transfer data
-- S = sequential workload processing rate 
+
+- S = sequential workload processing rate
 - R = random workload processing rate
 - N = (the number of accesses)
-> 
+  >
 
 > Sequential read: N*S
-Sequential write: N*S
-Random read: N*R
-Random write: N*R
-> 
+> Sequential write: N*S
+> Random read: N*R
+> Random write: N*R
 
 - **Capability**
 
 We can use the entire disk space for storing the actual data so its capability is great.
 
 > B: the number of blocks
-Capability: N * B
->
+> Capability: N \* B
 
 - **Reliability**
 
@@ -90,35 +77,27 @@ It cannot deal with any disk failures, since striping doesn’t have any backup 
 
 ## RAID Level 1: Mirroring
 
-
-
-
-
 Mirroring has original disks and copy disks. The copy disks copy the contents of the original disks. For example, the contents of **Disk 0** are the same as **Disk 1**.
 
-
-
 ![RAID-1](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/223s054fl6qf9rd44714.png)
-
-
-
 
 ### Evaluating RAID-1
 
 - **Performance**
 
-> - Sequential read: S/2 * N (Depending on the workload, you might need to skip every other block. So it takes twice the positioning times)
-- Sequential write: S/2 * N (Same as sequential read)
-- Random read: R * N (The positioning time doesn't get affected since the workload is given randomly)
-- Random write: R/2 * N (One logical write takes two physical writes)
-> 
+> - Sequential read: S/2 \* N (Depending on the workload, you might need to skip every other block. So it takes twice the positioning times)
+
+- Sequential write: S/2 \* N (Same as sequential read)
+- Random read: R \* N (The positioning time doesn't get affected since the workload is given randomly)
+- Random write: R/2 \* N (One logical write takes two physical writes)
+
+  >
 
 - **Capability**
 
-We can use half of the entire disk space so it’s not a good choice if you think about capability. 
+We can use half of the entire disk space so it’s not a good choice if you think about capability.
 
-> Capability: N/2 * B
->
+> Capability: N/2 \* B
 
 - **Reliability**
 
@@ -126,17 +105,11 @@ It can handle single disk failure for each block So it is more reliable than **R
 
 ## RAID Level 4: With Parity
 
-
-
 ![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/k92tu34nzge7pwaa372d.png)
 
-
-RAID Level 4 uses one of the disks for parity bits.  The XOR operation makes this possible. See below.
-
+RAID Level 4 uses one of the disks for parity bits. The XOR operation makes this possible. See below.
 
 ![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0j6keo54rv1dgapx6p05.png)
-
-
 
 C0, C1, C2, and C3 represent the bits at the same position on each disk.
 
@@ -144,49 +117,45 @@ Let’s say there’s no disk failure at this position. Since `C0 == C1` and `C2
 
 Here’s an interesting fact: XOR keeps the number of 1s even. For example, look at this table.
 
-| C0 | C1 | C2 | C3 | P |
-| --- | --- | --- | --- | --- |
-| 0 | 0 | 1 | 1 | XOR(0,0,1,1) = 0 |
-| 0 | 0 | 0 | 1 | XOR(0,0,0,1) = 1 |
+| C0  | C1  | C2  | C3  | P                |
+| --- | --- | --- | --- | ---------------- |
+| 0   | 0   | 1   | 1   | XOR(0,0,1,1) = 0 |
+| 0   | 0   | 0   | 1   | XOR(0,0,0,1) = 1 |
 
 Imagine one bit(C2) in a row is lost. How can we reconstruct the answer?
 
 By XOR all of the rest. C2 would be 0 if the number of 1s are even, otherwise 1. XOR(C0,C1,C3,P) = XOR(0,0,1,0) == 1. There we go
 
-| C0 | C1 | C2 | C3 | P |
-| --- | --- | --- | --- | --- |
-| 0 | 0 | LOST | 1 | XOR(0,0,1,1) = 0 |
+| C0  | C1  | C2   | C3  | P                |
+| --- | --- | ---- | --- | ---------------- |
+| 0   | 0   | LOST | 1   | XOR(0,0,1,1) = 0 |
 
 ### Evaluating RAID-4
 
 - **Performance**
 
-> Sequential read: (N - 1) * S (one for parity disk)
-Sequential write: (N - 1) * S (optimistic-writing in parallel and updating the parity bit)
-Random read: (N - 1) * R 
-Random write: R/2 (two writes and reads in parallel)
-
+> Sequential read: (N - 1) _ S (one for parity disk)
+> Sequential write: (N - 1) _ S (optimistic-writing in parallel and updating the parity bit)
+> Random read: (N - 1) \* R
+> Random write: R/2 (two writes and reads in parallel)
 
 When it comes to **random write** we get the value of the new parity using this formula: P(new) = (C(old) ^ C(new)) ^ P(old). C(old) and C(new) are same, P(new) should be P(old). However, if C(old) and C(new) are different, P(new) should be different from P(old). Since this logical operation takes two reads(old ones) and two writes(write) in parallel, the rate of random write is **R/2,** which is **extremely slow**. This problem is referred to as **‘slow write problem’**
+
 >
 
 - **Capability**
 
 It uses one disk for parity back, which is for pure protection. You can see it’s **better than mirroring**
 
-> Capability: (N - 1) * B
->
- 
+> Capability: (N - 1) \* B
+
 - **Reliability**
 
 It can handle single disk failure for each block So it is as reliable as **RAID-2**
 
 ## RAID-5
 
-
 ![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/a9ptbglmcfqgldl9m7gd.png)
-
-
 
 You could see that random write of **RAID-4** is very slow. To overcome this, people came out with the upgraded version: **RAID-5**.
 
@@ -194,18 +163,14 @@ You could see that random write of **RAID-4** is very slow. To overcome this, pe
 
 - **Performance**
 
-> Sequential read: (N - 1) * S (one for parity disk)
-Sequential write: (N - 1) * S (optimistic-writing in parallel and updating the parity bit)
-Random read: N * R 
-Random write: R/4 * N (two writes and reads in parallel. But if there are enough workload you can say each disk deals with 4 accesses for one logical access.)
-> 
+> Sequential read: (N - 1) _ S (one for parity disk)
+> Sequential write: (N - 1) _ S (optimistic-writing in parallel and updating the parity bit)
+> Random read: N _ R
+> Random write: R/4 _ N (two writes and reads in parallel. But if there are enough workload you can say each disk deals with 4 accesses for one logical access.)
 
 ## Conclusion
 
-
 ![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tjcctwoqc649xzokntof.png)
-
-
 
 - If your workload is sequential only, think about using **RAID-1**
 - If your workload is random or mixed, think about using **RAID-5**

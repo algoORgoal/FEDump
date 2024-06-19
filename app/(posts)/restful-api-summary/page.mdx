@@ -1,4 +1,5 @@
 ## 📘REST의 뜻
+
 - 웹 상에서 두 컴퓨터가 통신하기 위한 일련의 규칙들의 집합
 - **Representational State Transfer의 줄임말**
 - server가 리소스를 나타내는 정보(representation of resource),그리고 리소스의 state를 변화시킬 수 있는 링크를 보낸다는 점에서 REST로 불렀다. 다만 대다수의 웹서비스에 적용된 RESTful API들은 링크를 보내지는 않는다.
@@ -6,8 +7,8 @@
 - 주로 HTTP를 기반으로 하는 Web App에 사용된다.
 
 ---
-## RESTful API가 되기 위한 조건
 
+## RESTful API가 되기 위한 조건
 
 ### Uniform Interface
 
@@ -37,8 +38,8 @@
 서버는 상황에 따라 클라이언트에게 executable codes를 보낼 수 있다.
 
 ---
-## Idempotence
 
+## Idempotence
 
 - idempotent method는 아무리 여러번 호출되더라도 동일한 결과를 가진다.
 - 동일한 결과는 resource representation이 동일하다는 뜻이다.
@@ -48,15 +49,13 @@
 
 ## 🆕 Versioning RESTful API
 
-
 가장 대표적인 방법은 version number를 url에 포함시키는 것이다.
 
 ---
 
 ## ❌ Accept-Language/Accept Header
 
-
-HTTP request의 accept-language에 명시된 대로 resource를 보낼 수 없다면, status code 406를 반환해야한다. 
+HTTP request의 accept-language에 명시된 대로 resource를 보낼 수 없다면, status code 406를 반환해야한다.
 
 ---
 

@@ -1,26 +1,28 @@
 1. 페이지 찾기
 2. 인터렉션 찾기
 
-1. 로그인 버튼/(내정보 버튼)
-2. 태그 선택
-3. 좋아요 버튼/피드 선택 버튼/아티클 링크
+3. 로그인 버튼/(내정보 버튼)
+4. 태그 선택
+5. 좋아요 버튼/피드 선택 버튼/아티클 링크
 
 아티클
+
 1. 탭리스트
 2. 아티클
 3. pagination
 
-1. 리팩토링을 할 때, 변경되는 코드의 양을 최소한으로 줄이자.
-2. 같은 프로젝트를 할 때 일관적인 디렉토리 형태를 사용하여 통일성이 부여된다 =>새로운 개발자가 들어왔을 때 확인 가능하다.
-3. 코드가 어디 있을지 위치를 특정하는게 더 쉽다.(depth가 작음)
+4. 리팩토링을 할 때, 변경되는 코드의 양을 최소한으로 줄이자.
+5. 같은 프로젝트를 할 때 일관적인 디렉토리 형태를 사용하여 통일성이 부여된다 =>새로운 개발자가 들어왔을 때 확인 가능하다.
+6. 코드가 어디 있을지 위치를 특정하는게 더 쉽다.(depth가 작음)
 
 Layouts
+
 1. app: top level component
 2. pages: pages, 보통 UI만으로 동작
 3. widgets: UI block(layout), entities 와 features를 조합하여 구성하는 layout
 4. entities: feature elements를 렌더링할 수 있는 slot이 존재하는 UI 껍데기
 5. features: 인터렉션에 사용되는 코드(UI, storage accesses)
-6. shared: 개발하려는 feature와 상관 없는 코드. 디자인 시스템 컴포넌트, api client setting, 
+6. shared: 개발하려는 feature와 상관 없는 코드. 디자인 시스템 컴포넌트, api client setting,
 
 Slices
 디렉토리명은 개발하고자하는 feature에 따라 분류한다.
@@ -31,4 +33,3 @@ ui: compoennts
 model: global state(data storage)
 lib: hooks, helpers
 api
-

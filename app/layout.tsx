@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={`${pretendard.className}`}>
-        <div className="min-h-screen w-full bg-white dark:bg-zinc-700 flex flex-col">
+        <div className="flex min-h-screen w-full flex-col bg-white dark:bg-zinc-700">
           {children}
         </div>
       </body>

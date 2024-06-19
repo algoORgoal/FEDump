@@ -1,5 +1,5 @@
-
 ## Description
+
 1. You have a Next.js setup pre-configured by default.
 2. You integrated Storybook with tailwindcss and next.js.
 3. When you run `yarn dev` or `npm run dev`, you can see `tailwindcss` is applied to your app.
@@ -11,31 +11,33 @@ If you went through all the things, maybe this post might give you some workarou
 
 1. Run the following command:
 
-    ```
-    yarn add autoprefixer --dev
-    ```
+   ```
+   yarn add autoprefixer --dev
+   ```
 
 2. Create `postcss.config.js` in your project root directory and type this in the file:
 
-    ```js
-    // esmodule config is not supported by Storybook
+   ```js
+   // esmodule config is not supported by Storybook
 
-    module.exports = {
-      plugins: {
-        tailwindcss: {},
-        autoprefixer: {},
-      },
-    };
-    ```
+   module.exports = {
+     plugins: {
+       tailwindcss: {},
+       autoprefixer: {},
+     },
+   };
+   ```
 
 3. Helpful Information
-  - Storybook picks up `tailwindcss` in these cases.
-      1. There is only `postcss.config.js` in your project
-      2. There are both `postcss.config.mjs` and `postcss.config.js` in your project
-  - Storybook doesn't pick up `tailwindcss` in this cases.
-      1. There is only `postcss.config.mjs` in your project
+
+- Storybook picks up `tailwindcss` in these cases.
+  1. There is only `postcss.config.js` in your project
+  2. There are both `postcss.config.mjs` and `postcss.config.js` in your project
+- Storybook doesn't pick up `tailwindcss` in this cases.
+  1. There is only `postcss.config.mjs` in your project
 
 ## Related GitHub Issues and Articles
+
 [[Bug]: Configuration with TailwindCss](https://github.com/storybookjs/storybook/issues/25177)
 [Next.js using Tailwind with Storybook](https://dev.to/lico/nextjs-using-tailwind-with-storybook-5aie)
 
