@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, Fragment, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 import { Separator } from "./separator";
 
 function BaseHeading({ children }: { children: ReactNode }) {
