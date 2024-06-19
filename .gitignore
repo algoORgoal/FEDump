@@ -27,3 +27,4 @@ dist-ssr
 # Next.js
 .next
 next-end.d.ts
+.vercel
