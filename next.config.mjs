@@ -2,6 +2,9 @@ import createMDX from "@next/mdx";
 import remarkGfm from "remark-gfm";
 import remarkUnwrapImages from "remark-unwrap-images";
 import rehypeHighlight from "rehype-highlight";
+import remarkTOC from "remark-toc";
+import rehypeSlug from "rehype-slug";
+import rehypeAutoLinkHeadings from "rehype-autolink-headings";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -48,8 +51,23 @@ const nextConfig = {
 
 const withMDX = createMDX({
   options: {
-    remarkPlugins: [remarkGfm, remarkUnwrapImages],
-    rehypePlugins: [rehypeHighlight],
+    remarkPlugins: [
+      remarkGfm,
+      remarkUnwrapImages,
+      [
+        remarkTOC,
+        {
+          ordered: true,
+          maxDepth: 4,
+          heading: "Table of Contents",
+        },
+      ],
+    ],
+    rehypePlugins: [
+      rehypeHighlight,
+      rehypeSlug,
+      [rehypeAutoLinkHeadings, { behavior: "wrap" }],
+    ],
   },
 });
 

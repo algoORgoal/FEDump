@@ -1,5 +1,7 @@
 [Masa's blog post](https://dev.to/masakudamatsu/favicon-nightmare-how-to-maintain-sanity-3al7) introduces how you can use favicon in 2023. In summary, he says you only need to include four types of images: ico favicon, svg favicon, apple-touch-icons, and web manifest icons. I wanted to play around with it to test if it works in 2024.
 
+## Table of Contents
+
 ## What we can achieve from appropriate favicons
 
 - It can give customers a sense of your brand if you're running a business.
@@ -36,7 +38,7 @@
 - However, the favicon selection algorithm of the browser chooses `.ico` favicons over `svg` favicons depending on how they are placed in the markup.
 - Note that `size` attribute plays an important role here.
 
-### 1. Both without `size` attribute
+### Both without `size` attribute
 
 ```HTML
 <link rel="icon" href="/favicon.ico" />
@@ -47,7 +49,7 @@
 
 - `.ico` icon rendered instead of `.svg` icon on the tab.
 
-### 2. Both with `sizes='any'`
+### Both with `sizes='any'`
 
 ```HTML
 <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -58,7 +60,7 @@
 
 - `.ico` icon rendered on the tab instead of `.svg` icon.
 
-### 3. Only '.ico' favicon with `sizes='any'`
+### Only '.ico' favicon with `sizes='any'`
 
 ```HTML
 <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -69,7 +71,7 @@
 
 - `.ico` icon rendered on the tab instead of `.svg` icon.
 
-### 4. Only '.svg' favicon with `sizes='any'`
+### Only '.svg' favicon with `sizes='any'`
 
 ```HTML
 <link rel="icon" href="/favicon.ico" />
@@ -80,7 +82,7 @@
 
 - `.ico` icon rendered on the tab instead of `.svg` icon.
 
-### 5. Setting `sizes='48x48'`
+### Setting `sizes='48x48'`
 
 ```HTML
 <link rel="icon" href="/favicon.ico" sizes="32x32" />
