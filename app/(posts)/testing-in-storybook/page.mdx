@@ -38,11 +38,8 @@ So I tried Jest/React-Testing-Libary and was quite satisfied with these technolo
 
 1.  Install test runner
 
-        ```
-
-    yarn add --dev @storybook/test-runner
-
     ```
+    yarn add --dev @storybook/test-runner
 
     ```
 
@@ -119,7 +116,7 @@ Test coverage shows any code lines that tests haven't gone through.
 
 You can navigate to the URL of storybook and do end-to-end testing straight up.
 
-```ts
+```typescript
 import { Frame } from "@playwright/test";
 import { test, expect } from "./test";
 
@@ -149,52 +146,43 @@ test("has logout button", async ({ page }) => {
 
 ### API Mocking
 
-1. Install the addon.
-
-   ```
-
-   ```
-
-yarn add msw msw-storybook-addon --dev
-
-````
-
-2. Generate service worker to your `public` directory.
-
+1.  Install the addon.
 
     ```
-
-yarn msw init public/
-````
-
-3. Include the addon in .storybook/preview.ts
-
-   ```ts
-
-   ```
-
-import { initialize, mswLoader } from 'msw-storybook-addon'
-// Initialize MSW
-initialize()
-const preview = {
-  parameters: {
-    // your other code...
-  },
-  // Provide the MSW addon loader globally
-  loaders: [mswLoader],
-}
-export default preview
+    yarn add msw msw-storybook-addon --dev
     ```
 
-4. Open your `storybook` URL(http:localhost:6006) and check browser devtools > console tab. If MSW is enabled in your browser, you'll be able to see this log.
+2.  Generate service worker to your `public` directory.
 
-   ![msw enabled on console](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ma5bel5uwcmof4u4vim8.png)
+    ```
+    yarn msw init public/
+    ```
 
-   ![msw enabled on console2](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zgdwyvohdn51mlfkh1uw.png)
+3.  Include the addon in .storybook/preview.ts
 
-5. You can also see the following log in the console tab if the request was intercepted by MSW.
+    ```ts
+    import { initialize, mswLoader } from "msw-storybook-addon";
+    // Initialize MSW
+    initialize();
+    const preview = {
+      parameters: {
+        // your other code...
+      },
+      // Provide the MSW addon loader globally
+      loaders: [mswLoader],
+    };
+    export default preview;
+    ```
 
-   ![mocking intercepted by MSW](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zwzor2h1tbmz54eb5m0x.png)
+4.  Open your `storybook` URL(http:localhost:6006) and check browser devtools > console tab. If MSW is enabled in your browser, you'll be able to see this log.
+
+    ![msw enabled on console](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ma5bel5uwcmof4u4vim8.png)
+
+    ![msw enabled on console2](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zgdwyvohdn51mlfkh1uw.png)
+
+5.  You can also see the following log in the console tab if the request was intercepted by MSW.
+
+    ![mocking intercepted by MSW](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zwzor2h1tbmz54eb5m0x.png)
 
 ## Issues
 
