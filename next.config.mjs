@@ -58,7 +58,6 @@ const withMDX = createMDX({
         remarkTOC,
         {
           ordered: true,
-          tight: false,
           maxDepth: 4,
           heading: "Table of Contents",
         },

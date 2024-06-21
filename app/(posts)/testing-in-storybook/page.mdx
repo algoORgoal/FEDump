@@ -1,3 +1,5 @@
+## Table of Contents
+
 ## Introduction
 
 Storybook provides an environment where you can build components in isolation, and checking edge case UI states became easier with Storybook. What's more, you can write tests in Storybook. Also, testing environment comes with zero configuration. Aren't you excited? In this post, I will talk about what made me start testing in Storybook, how you can set up testing in Storybook, some issues I had with Storybook Addons.
@@ -39,6 +41,9 @@ So I tried Jest/React-Testing-Libary and was quite satisfied with these technolo
         ```
 
     yarn add --dev @storybook/test-runner
+
+    ```
+
     ```
 
 2.  Run the test-runner
@@ -146,11 +151,13 @@ test("has logout button", async ({ page }) => {
 
 1. Install the addon.
 
+   ```
 
-    ```
+   ```
 
 yarn add msw msw-storybook-addon --dev
-```
+
+````
 
 2. Generate service worker to your `public` directory.
 
@@ -158,12 +165,13 @@ yarn add msw msw-storybook-addon --dev
     ```
 
 yarn msw init public/
-```
+````
 
 3. Include the addon in .storybook/preview.ts
 
+   ```ts
 
-    ```ts
+   ```
 
 import { initialize, mswLoader } from 'msw-storybook-addon'
 // Initialize MSW
@@ -180,16 +188,13 @@ export default preview
 
 4. Open your `storybook` URL(http:localhost:6006) and check browser devtools > console tab. If MSW is enabled in your browser, you'll be able to see this log.
 
+   ![msw enabled on console](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ma5bel5uwcmof4u4vim8.png)
 
-    ![msw enabled on console](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ma5bel5uwcmof4u4vim8.png)
-
-
-    ![msw enabled on console2](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zgdwyvohdn51mlfkh1uw.png)
+   ![msw enabled on console2](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zgdwyvohdn51mlfkh1uw.png)
 
 5. You can also see the following log in the console tab if the request was intercepted by MSW.
 
-
-    ![mocking intercepted by MSW](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zwzor2h1tbmz54eb5m0x.png)
+   ![mocking intercepted by MSW](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/zwzor2h1tbmz54eb5m0x.png)
 
 ## Issues
 
@@ -205,19 +210,17 @@ You can see that all the tests passed, but the coverage result is not displayed.
 
 1. Install `nyc` as a dev dependency.
 
-
-    ```
-    yarn add nyc --dev
-    ```
+   ```
+   yarn add nyc --dev
+   ```
 
 2. Run this command instead.
 
+   ```
+   test-storybook --coverage --coverageDirectory coverage && nyc report --reporter=text -t coverage
+   ```
 
-    ```
-    test-storybook --coverage --coverageDirectory coverage && nyc report --reporter=text -t coverage
-    ```
-
-    `nyc` prints the result on console. This time we tell `nyc` where to pick up the coverage report file(`./coverage`).
+   `nyc` prints the result on console. This time we tell `nyc` where to pick up the coverage report file(`./coverage`).
 
 ## Troubleshooting
 
