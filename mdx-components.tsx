@@ -9,6 +9,7 @@ import Paragraph from "./src/shared/ui/paragraph";
 import Image, { ImageProps } from "next/image";
 import Unordered from "./src/shared/ui/unordered";
 import Ordered from "./src/shared/ui/ordered";
+import Anchor from "./src/shared/ui/anchor";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -30,6 +31,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </div>
     ),
     p: Paragraph,
+    a: Anchor,
     ...components,
   };
 }
