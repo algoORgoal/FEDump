@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={`${suit.className}`}>
-        <div className="flex min-h-screen w-full flex-col bg-white dark:bg-zinc-700">
+        <div className="flex min-h-screen w-full flex-col items-start justify-start bg-white dark:bg-zinc-700">
           {children}
         </div>
       </body>
