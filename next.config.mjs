@@ -66,7 +66,15 @@ const withMDX = createMDX({
     rehypePlugins: [
       rehypeHighlight,
       rehypeSlug,
-      [rehypeAutoLinkHeadings, { behavior: "wrap" }],
+      [
+        rehypeAutoLinkHeadings,
+        {
+          behavior: "wrap",
+          properties: {
+            isHeading: true,
+          },
+        },
+      ],
     ],
   },
 });
