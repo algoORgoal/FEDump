@@ -1,5 +1,4 @@
-import { ComponentPropsWithoutRef, ReactNode } from "react";
-import { Separator } from "./separator";
+import { ComponentPropsWithoutRef } from "react";
 
 export function Heading1(props: ComponentPropsWithoutRef<"h1">) {
   return (
