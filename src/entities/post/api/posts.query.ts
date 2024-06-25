@@ -1,10 +1,5 @@
+import { Post } from "@/src/shared/lib/types/post";
 import { readdir } from "fs/promises";
-
-interface Post {
-  slug: string;
-  title: string;
-  publishedAt: string;
-}
 
 const PostPages = {
   All: "all",
@@ -29,7 +24,7 @@ export const getPosts = async (): Promise<Post[]> => {
       const { metadata } = (await import(
         `/app/(posts)/${name}/layout.tsx`
       )) as {
-        metadata: { title: string; publishedAt: string };
+        metadata: Omit<Post, "slug">;
       };
       return { slug: name, ...metadata };
     }),
