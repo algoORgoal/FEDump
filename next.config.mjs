@@ -8,6 +8,7 @@ import rehypeAutoLinkHeadings from "rehype-autolink-headings";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
   // Configure `pageExtensions` to include MDX files
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   webpack(config) {
@@ -38,14 +39,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "dev-to-uploads.s3.amazonaws.com",
-        port: "",
-        pathname: "**",
-      },
-    ],
+    unoptimized: true,
   },
 };
 
